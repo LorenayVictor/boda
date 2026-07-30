@@ -4,11 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Lorena & Víctor · 19 de junio de 2027 · Zaragoza</title>
-<meta name="description" content="Lorena y Víctor se casan el 19 de junio de 2027 en la Iglesia de Santa Isabel de Portugal (Zaragoza). Información para invitados.">
+<meta name="description" content="Lorena y Víctor se casan el 19 de junio de 2027 en la Iglesia de Santa Isabel de Portugal (Zaragoza).">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel='stylesheet' href='https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500&display=swap'>
+<link rel='stylesheet' href='https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500&display=swap'>
 
 <script src='https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js'></script>
 <script src='https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js'></script>
@@ -16,15 +16,20 @@
 
 <style>
 :root {
-  --jungle-deep:    #05140A;
-  --jungle-primary: #0D2818;
-  --jungle-mid:     #0a1f12;
-  --jungle-secondary: #1A4D2E;
-  --gold:           #C9A227;
-  --gold-light:     #D4AF37;
-  --gold-dark:      #B8860B;
-  --ivory:          #F5F5DC;
-  --moss:           #8FBC8F;
+  --cream:         #F4ECD8;
+  --cream-light:   #FAF5E8;
+  --cream-dark:    #E8DCC0;
+  --paper:         #F8F1E0;
+  --gold:          #A67C00;
+  --gold-light:    #C9A227;
+  --gold-dark:     #8B6914;
+  --brown:         #3D2817;
+  --brown-dark:    #2C1810;
+  --brown-soft:    #6B4423;
+  --brown-light:   #8B6F47;
+  --wine:          #6B2D30;
+  --olive:         #6B7A3F;
+  --olive-light:   #8A9B5A;
   --ease-quiet:    cubic-bezier(.22, 1, .36, 1);
   --ease-precise:  cubic-bezier(.4, 0, .2, 1);
   --ease-emphasis: cubic-bezier(.16, 1, .3, 1);
@@ -32,34 +37,45 @@
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
-html { -webkit-font-smoothing: antialiased; }
+html { -webkit-font-smoothing: antialiased; scroll-behavior: smooth; }
 
 body {
-  font-family: 'Inter', sans-serif;
-  font-weight: 300;
-  background: var(--jungle-deep);
-  color: var(--ivory);
-  line-height: 1.65;
+  font-family: 'Lora', serif;
+  font-weight: 400;
+  background: var(--cream);
+  color: var(--brown);
+  line-height: 1.7;
   overflow-x: hidden;
+  position: relative;
+}
+
+/* Paper texture overlay */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9999;
+  mix-blend-mode: multiply;
 }
 
 img { max-width: 100%; display: block; }
-
 a { color: inherit; text-decoration: none; }
 
 h1, h2, h3, h4 {
   font-family: 'Cormorant Garamond', serif;
-  font-weight: 300;
-  line-height: 1.1;
-  color: var(--ivory);
+  font-weight: 400;
+  line-height: 1.15;
+  color: var(--brown-dark);
 }
 
 .eyebrow {
   display: inline-block;
   font-family: 'Inter', sans-serif;
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 500;
-  letter-spacing: 0.35em;
+  letter-spacing: 0.4em;
   text-transform: uppercase;
   color: var(--gold);
   opacity: 0;
@@ -88,6 +104,32 @@ section { position: relative; }
 }
 .container--narrow { max-width: 860px; }
 
+/* Ornamental divider */
+.ornament {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin: 2rem 0;
+}
+.ornament__line {
+  height: 1px;
+  width: 60px;
+  background: linear-gradient(to right, transparent, var(--gold));
+}
+.ornament__line--right {
+  background: linear-gradient(to left, transparent, var(--gold));
+}
+.ornament__diamond {
+  width: 6px; height: 6px;
+  background: var(--gold);
+  transform: rotate(45deg);
+}
+.ornament__svg {
+  width: 24px; height: 24px;
+  color: var(--gold);
+}
+
 /* ============ NAV ============ */
 .nav {
   position: fixed;
@@ -97,29 +139,36 @@ section { position: relative; }
   display: flex;
   justify-content: space-between;
   align-items: center;
-  transition: background 400ms var(--ease-quiet), backdrop-filter 400ms;
+  transition: background 400ms var(--ease-quiet), backdrop-filter 400ms, padding 400ms;
 }
 .nav.scrolled {
-  background: rgba(5, 20, 10, 0.85);
+  background: rgba(244, 236, 216, 0.92);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(201, 162, 39, 0.15);
+  border-bottom: 1px solid rgba(166, 124, 0, 0.15);
+  padding: 0.85rem 2rem;
 }
 .nav__brand {
   font-family: 'Cormorant Garamond', serif;
   font-size: 1.5rem;
-  font-weight: 400;
+  font-weight: 500;
   letter-spacing: 0.05em;
-  color: var(--ivory);
+  color: var(--brown-dark);
 }
-.nav__brand em { color: var(--gold); font-style: normal; padding: 0 0.25rem; }
+.nav__brand em {
+  color: var(--gold);
+  font-style: italic;
+  padding: 0 0.25rem;
+  font-weight: 400;
+}
 .nav__links { display: flex; gap: 2rem; }
 .nav__links a {
-  font-size: 11px;
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
   font-weight: 500;
-  letter-spacing: 0.25em;
+  letter-spacing: 0.3em;
   text-transform: uppercase;
-  color: var(--ivory);
+  color: var(--brown);
   opacity: 0.7;
   transition: opacity 300ms, color 300ms;
 }
@@ -138,46 +187,52 @@ section { position: relative; }
   position: relative;
   padding: 6rem 2rem 4rem;
   overflow: hidden;
-  background:
-    radial-gradient(ellipse at 50% 30%, var(--jungle-secondary) 0%, var(--jungle-primary) 35%, var(--jungle-deep) 75%);
+  background: var(--cream);
 }
-.hero::before {
+
+/* Decorative border frame */
+.hero__frame {
+  position: absolute;
+  inset: 1.5rem;
+  border: 1px solid rgba(166, 124, 0, 0.25);
+  pointer-events: none;
+  z-index: 1;
+}
+.hero__frame::before {
   content: '';
   position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(circle at 20% 80%, rgba(201, 162, 39, 0.08) 0%, transparent 50%),
-    radial-gradient(circle at 80% 20%, rgba(143, 188, 143, 0.05) 0%, transparent 50%);
+  inset: 6px;
+  border: 1px solid rgba(166, 124, 0, 0.12);
+}
+
+/* Church facade watermark */
+.hero__facade {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -48%);
+  width: min(90%, 700px);
+  opacity: 0.08;
+  z-index: 0;
   pointer-events: none;
 }
-.hero__bg {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  overflow: hidden;
-  opacity: 0.18;
-}
-.hero__bg img {
+.hero__facade svg {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-  animation: kenburns 30s ease-in-out infinite alternate;
-}
-@keyframes kenburns {
-  0%   { transform: scale(1.1) translate(-1%, -1%); }
-  100% { transform: scale(1.2) translate(1%, 1%); }
+  height: auto;
+  color: var(--brown-dark);
 }
 
 .hero__inner {
   position: relative;
-  z-index: 2;
+  z-index: 3;
   text-align: center;
   max-width: 900px;
 }
 
 .hero__pre {
+  font-family: 'Inter', sans-serif;
   font-size: 11px;
-  letter-spacing: 0.4em;
+  letter-spacing: 0.45em;
   text-transform: uppercase;
   color: var(--gold);
   margin-bottom: 2.5rem;
@@ -197,11 +252,11 @@ section { position: relative; }
 }
 
 .hero__title {
-  font-size: clamp(3.5rem, 11vw, 9rem);
-  font-weight: 300;
+  font-size: clamp(3.5rem, 11vw, 8.5rem);
+  font-weight: 400;
   letter-spacing: -0.01em;
   line-height: 0.95;
-  color: var(--ivory);
+  color: var(--brown-dark);
   margin-bottom: 2rem;
 }
 .hero__title .name {
@@ -216,7 +271,7 @@ section { position: relative; }
   font-style: italic;
   color: var(--gold);
   padding: 0 0.5rem;
-  font-weight: 400;
+  font-weight: 300;
   opacity: 0;
   transform: translateY(40px);
   animation: heroFadeIn 1.4s var(--ease-emphasis) 0.9s forwards;
@@ -232,14 +287,14 @@ section { position: relative; }
   align-items: center;
   justify-content: center;
   gap: 1.5rem;
-  font-size: 12px;
-  letter-spacing: 0.3em;
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.35em;
   text-transform: uppercase;
-  color: var(--ivory);
+  color: var(--brown);
   opacity: 0;
   animation: heroFadeIn 1s var(--ease-quiet) 1.6s forwards;
 }
-.hero__meta span { display: inline-block; }
 .hero__meta .dot {
   width: 4px; height: 4px;
   border-radius: 50%;
@@ -247,25 +302,37 @@ section { position: relative; }
   display: inline-block;
 }
 
+.hero__sub {
+  margin-top: 2.5rem;
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 1.3rem;
+  color: var(--brown-soft);
+  opacity: 0;
+  animation: heroFadeIn 1s var(--ease-quiet) 1.9s forwards;
+}
+
 .hero__scroll {
   position: absolute;
-  bottom: 2rem;
+  bottom: 3rem;
   left: 50%;
   transform: translateX(-50%);
-  font-size: 10px;
-  letter-spacing: 0.3em;
+  font-family: 'Inter', sans-serif;
+  font-size: 9px;
+  letter-spacing: 0.35em;
   text-transform: uppercase;
-  color: var(--ivory);
+  color: var(--brown-soft);
   opacity: 0;
-  animation: heroFadeIn 1s var(--ease-quiet) 2.2s forwards;
+  animation: heroFadeIn 1s var(--ease-quiet) 2.4s forwards;
+  z-index: 3;
 }
 .hero__scroll::after {
   content: '';
   display: block;
   width: 1px;
-  height: 40px;
+  height: 35px;
   background: var(--gold);
-  margin: 1rem auto 0;
+  margin: 0.8rem auto 0;
   animation: scrollLine 2s var(--ease-quiet) infinite;
   transform-origin: top;
 }
@@ -276,74 +343,81 @@ section { position: relative; }
   100% { transform: scaleY(0); transform-origin: bottom; }
 }
 
-/* Scattered leaves */
-.leaf {
+/* Scattered olive branches */
+.olive-branch {
   position: absolute;
   pointer-events: none;
   opacity: 0;
-  z-index: 1;
+  z-index: 2;
   transition: transform 1200ms cubic-bezier(.34,1.56,.64,1), opacity 1200ms var(--ease-quiet);
-  color: var(--gold);
+  color: var(--olive);
 }
-.leaf.in { opacity: 0.85; }
-.leaf svg { width: 100%; height: 100%; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.4)); }
-.leaf.sway svg { animation: leaf-sway 4s ease-in-out infinite; transform-origin: 50% 0%; }
-@keyframes leaf-sway {
-  0%, 100% { transform: rotate(-3deg); }
-  50%      { transform: rotate(3deg); }
+.olive-branch.in { opacity: 0.7; }
+.olive-branch svg {
+  width: 100%; height: 100%;
+  filter: drop-shadow(0 3px 8px rgba(61, 40, 23, 0.15));
 }
-.leaf--1 { top: 8%; left: 5%; width: 180px; height: 220px; }
-.leaf--2 { top: 12%; right: 7%; width: 140px; height: 170px; color: var(--moss); }
-.leaf--3 { bottom: 18%; left: 8%; width: 110px; height: 140px; color: var(--moss); }
-.leaf--4 { bottom: 12%; right: 5%; width: 200px; height: 240px; }
-.leaf--5 { top: 45%; left: 2%; width: 90px; height: 110px; }
+.olive-branch.sway svg {
+  animation: branch-sway 5s ease-in-out infinite;
+  transform-origin: 50% 0%;
+}
+@keyframes branch-sway {
+  0%, 100% { transform: rotate(-2deg); }
+  50%      { transform: rotate(2deg); }
+}
+.olive-branch--1 { top: 6%; left: 4%; width: 130px; height: 200px; transform: rotate(-15deg); }
+.olive-branch--2 { top: 8%; right: 5%; width: 110px; height: 180px; transform: rotate(20deg); color: var(--gold-dark); }
+.olive-branch--3 { bottom: 12%; left: 6%; width: 90px; height: 150px; transform: rotate(8deg); color: var(--olive-light); }
+.olive-branch--4 { bottom: 8%; right: 4%; width: 120px; height: 190px; transform: rotate(-12deg); }
 
-/* Spinning badge */
-.hero__badge {
+/* Wax seal badge */
+.hero__seal {
   position: absolute;
-  bottom: 6rem;
+  bottom: 5rem;
   right: 4rem;
-  width: 130px;
-  height: 130px;
+  width: 120px;
+  height: 120px;
   z-index: 3;
   opacity: 0;
-  animation: heroFadeIn 1s var(--ease-quiet) 2s forwards;
+  animation: heroFadeIn 1s var(--ease-quiet) 2.1s forwards;
 }
-.hero__badge svg { width: 100%; height: 100%; }
-.hero__badge .badge-rotate {
+.hero__seal svg { width: 100%; height: 100%; }
+.hero__seal .seal-rotate {
   transform-origin: 100px 100px;
-  animation: spin-cw 22s linear infinite;
+  animation: spin-cw 25s linear infinite;
 }
-.hero__badge text {
+.hero__seal text {
   font-family: 'Inter', sans-serif;
-  font-size: 9px;
+  font-size: 8px;
   font-weight: 500;
   letter-spacing: 0.25em;
   fill: var(--gold);
   text-transform: uppercase;
 }
-.hero__badge .badge-center {
+.hero__seal .seal-center {
   font-family: 'Cormorant Garamond', serif;
-  font-size: 28px;
-  fill: var(--ivory);
+  font-size: 32px;
+  fill: var(--wine);
+  font-style: italic;
+  font-weight: 500;
 }
 @keyframes spin-cw { from { transform: rotate(0); } to { transform: rotate(360deg); } }
 @keyframes spin-ccw { from { transform: rotate(0); } to { transform: rotate(-360deg); } }
 
 @media (max-width: 820px) {
-  .hero__badge { width: 90px; height: 90px; bottom: 5rem; right: 1.5rem; }
-  .leaf--1 { width: 110px; height: 140px; }
-  .leaf--2 { width: 90px; height: 110px; }
-  .leaf--3 { display: none; }
-  .leaf--4 { width: 120px; height: 150px; }
-  .leaf--5 { display: none; }
+  .hero__seal { width: 80px; height: 80px; bottom: 5rem; right: 1.5rem; }
+  .olive-branch--1 { width: 80px; height: 130px; }
+  .olive-branch--2 { width: 75px; height: 120px; }
+  .olive-branch--3 { display: none; }
+  .olive-branch--4 { width: 80px; height: 130px; }
+  .hero__frame { inset: 0.75rem; }
 }
 
 /* ============ WELCOME ============ */
 .welcome {
   padding: 10rem 2rem 8rem;
   position: relative;
-  background: var(--jungle-deep);
+  background: var(--cream);
 }
 .welcome::before {
   content: '';
@@ -354,13 +428,17 @@ section { position: relative; }
   height: 4rem;
   background: linear-gradient(to bottom, transparent, var(--gold));
 }
-.welcome__inner { text-align: center; max-width: 760px; margin: 0 auto; }
+.welcome__inner {
+  text-align: center;
+  max-width: 760px;
+  margin: 0 auto;
+}
 .welcome__text {
   font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(1.5rem, 3vw, 2.4rem);
-  line-height: 1.4;
+  font-size: clamp(1.5rem, 3vw, 2.2rem);
+  line-height: 1.5;
   font-weight: 300;
-  color: var(--ivory);
+  color: var(--brown);
   margin-top: 2.5rem;
 }
 .welcome__text .line { display: block; overflow: hidden; }
@@ -381,7 +459,7 @@ section { position: relative; }
   font-family: 'Cormorant Garamond', serif;
   font-style: italic;
   font-size: 1.4rem;
-  color: var(--moss);
+  color: var(--brown-soft);
   opacity: 0;
   transition: opacity 800ms var(--ease-quiet) 1.4s;
 }
@@ -389,10 +467,11 @@ section { position: relative; }
 
 /* ============ COUNTDOWN ============ */
 .countdown {
-  padding: 6rem 2rem;
-  background: var(--jungle-mid);
-  border-top: 1px solid rgba(201, 162, 39, 0.12);
-  border-bottom: 1px solid rgba(201, 162, 39, 0.12);
+  padding: 5rem 2rem;
+  background: var(--cream-dark);
+  border-top: 1px solid rgba(166, 124, 0, 0.2);
+  border-bottom: 1px solid rgba(166, 124, 0, 0.2);
+  position: relative;
 }
 .countdown__inner {
   max-width: 900px;
@@ -400,8 +479,9 @@ section { position: relative; }
   text-align: center;
 }
 .countdown__label {
+  font-family: 'Inter', sans-serif;
   font-size: 11px;
-  letter-spacing: 0.35em;
+  letter-spacing: 0.4em;
   text-transform: uppercase;
   color: var(--gold);
   margin-bottom: 2.5rem;
@@ -421,19 +501,20 @@ section { position: relative; }
   right: 0; top: 25%;
   width: 1px;
   height: 50%;
-  background: rgba(201, 162, 39, 0.2);
+  background: rgba(166, 124, 0, 0.25);
 }
 .countdown__num {
   font-family: 'Cormorant Garamond', serif;
   font-size: clamp(2.5rem, 6vw, 4.5rem);
   font-weight: 300;
-  color: var(--ivory);
+  color: var(--brown-dark);
   line-height: 1;
   display: block;
 }
 .countdown__lbl {
+  font-family: 'Inter', sans-serif;
   font-size: 10px;
-  letter-spacing: 0.3em;
+  letter-spacing: 0.35em;
   text-transform: uppercase;
   color: var(--gold);
   margin-top: 0.75rem;
@@ -447,7 +528,7 @@ section { position: relative; }
 /* ============ STORY (ZIGZAG) ============ */
 .story {
   padding: 10rem 2rem;
-  background: var(--jungle-deep);
+  background: var(--cream);
 }
 .story__head {
   text-align: center;
@@ -457,7 +538,7 @@ section { position: relative; }
   font-size: clamp(2.5rem, 5vw, 4rem);
   margin-top: 1.5rem;
   font-style: italic;
-  font-weight: 300;
+  font-weight: 400;
 }
 .story__head h2 em { color: var(--gold); font-style: normal; }
 
@@ -486,31 +567,36 @@ section { position: relative; }
 .is-in .zigzag__text > *:nth-child(3) { transition-delay: 400ms; }
 
 .zigzag__year {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 0.95rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
   letter-spacing: 0.4em;
   color: var(--gold);
   margin-bottom: 1.25rem;
   display: block;
+  text-transform: uppercase;
+  font-weight: 500;
 }
 .zigzag__title {
   font-size: clamp(1.8rem, 3vw, 2.5rem);
   margin-bottom: 1.5rem;
   line-height: 1.15;
+  font-weight: 400;
 }
 .zigzag__title em { color: var(--gold); font-style: italic; }
 .zigzag__desc {
   font-size: 1rem;
-  line-height: 1.75;
-  color: rgba(245, 245, 220, 0.75);
+  line-height: 1.8;
+  color: var(--brown-soft);
   max-width: 460px;
+  font-family: 'Lora', serif;
 }
 
 .zigzag__img {
   position: relative;
   overflow: hidden;
-  border-radius: 2px;
   aspect-ratio: 4/5;
+  border-radius: 50% 50% 4px 4px / 35% 35% 4px 4px;
+  box-shadow: 0 8px 32px rgba(61, 40, 23, 0.15);
 }
 .zigzag__img img {
   width: 100%; height: 100%;
@@ -525,7 +611,7 @@ section { position: relative; }
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, transparent 60%, rgba(5, 20, 10, 0.4));
+  background: linear-gradient(135deg, transparent 60%, rgba(61, 40, 23, 0.15));
   pointer-events: none;
 }
 
@@ -543,8 +629,8 @@ section { position: relative; }
   padding: 8rem 2rem;
   position: relative;
 }
-.venue--ceremony { background: var(--jungle-primary); }
-.venue--reception { background: var(--jungle-deep); }
+.venue--ceremony { background: var(--cream-light); }
+.venue--reception { background: var(--cream); }
 
 .venue__grid {
   display: grid;
@@ -561,6 +647,8 @@ section { position: relative; }
   position: relative;
   overflow: hidden;
   aspect-ratio: 3/4;
+  border-radius: 50% 50% 4px 4px / 30% 30% 4px 4px;
+  box-shadow: 0 12px 40px rgba(61, 40, 23, 0.18);
 }
 .venue__img img {
   width: 100%; height: 100%;
@@ -571,7 +659,7 @@ section { position: relative; }
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(5, 20, 10, 0.5), transparent 50%);
+  background: linear-gradient(to top, rgba(61, 40, 23, 0.25), transparent 50%);
 }
 
 .venue__text > * {
@@ -592,7 +680,7 @@ section { position: relative; }
 .venue__title {
   font-size: clamp(2rem, 4vw, 3.2rem);
   font-style: italic;
-  font-weight: 300;
+  font-weight: 400;
   margin: 1.25rem 0 1.5rem;
   line-height: 1.1;
 }
@@ -600,28 +688,30 @@ section { position: relative; }
 
 .venue__name {
   font-family: 'Cormorant Garamond', serif;
-  font-size: 1.5rem;
-  color: var(--ivory);
+  font-size: 1.4rem;
+  color: var(--brown);
   margin-bottom: 0.5rem;
-  font-weight: 400;
+  font-weight: 500;
 }
 
 .venue__detail {
   font-size: 0.95rem;
-  color: rgba(245, 245, 220, 0.7);
+  color: var(--brown-soft);
   margin-bottom: 0.4rem;
   display: flex;
   align-items: flex-start;
   gap: 0.75rem;
+  font-family: 'Lora', serif;
 }
 .venue__detail span:first-child {
   color: var(--gold);
   font-size: 10px;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.25em;
   text-transform: uppercase;
   min-width: 80px;
   padding-top: 4px;
   font-weight: 500;
+  font-family: 'Inter', sans-serif;
 }
 
 .venue__cta {
@@ -632,13 +722,14 @@ section { position: relative; }
   padding: 0.9rem 1.6rem;
   border: 1px solid var(--gold);
   color: var(--gold);
+  font-family: 'Inter', sans-serif;
   font-size: 11px;
-  letter-spacing: 0.25em;
+  letter-spacing: 0.3em;
   text-transform: uppercase;
   font-weight: 500;
   transition: background 300ms, color 300ms;
 }
-.venue__cta:hover { background: var(--gold); color: var(--jungle-deep); }
+.venue__cta:hover { background: var(--gold); color: var(--cream); }
 .venue__cta svg { width: 12px; height: 12px; }
 
 @media (max-width: 900px) {
@@ -649,7 +740,7 @@ section { position: relative; }
 /* ============ ITINERARY ============ */
 .itinerary {
   padding: 10rem 2rem;
-  background: var(--jungle-mid);
+  background: var(--cream-dark);
   position: relative;
 }
 .itinerary__head {
@@ -660,7 +751,7 @@ section { position: relative; }
   font-size: clamp(2.5rem, 5vw, 4rem);
   font-style: italic;
   margin-top: 1.5rem;
-  font-weight: 300;
+  font-weight: 400;
 }
 .itinerary__head h2 em { color: var(--gold); font-style: normal; }
 
@@ -676,7 +767,7 @@ section { position: relative; }
   top: 0; bottom: 0;
   width: 1px;
   background: linear-gradient(to bottom, transparent, var(--gold) 10%, var(--gold) 90%, transparent);
-  opacity: 0.3;
+  opacity: 0.35;
 }
 .tl__item {
   display: grid;
@@ -703,7 +794,7 @@ section { position: relative; }
   font-family: 'Cormorant Garamond', serif;
   font-size: 1.6rem;
   color: var(--gold);
-  font-weight: 400;
+  font-weight: 500;
   text-align: right;
   padding-top: 2px;
   line-height: 1;
@@ -711,9 +802,9 @@ section { position: relative; }
 .tl__time::after {
   content: '';
   display: inline-block;
-  width: 8px; height: 8px;
-  border: 1px solid var(--gold);
-  background: var(--jungle-mid);
+  width: 10px; height: 10px;
+  background: var(--cream-dark);
+  border: 2px solid var(--gold);
   border-radius: 50%;
   margin-left: 2rem;
   vertical-align: middle;
@@ -725,14 +816,15 @@ section { position: relative; }
 .tl__title {
   font-family: 'Cormorant Garamond', serif;
   font-size: 1.4rem;
-  color: var(--ivory);
+  color: var(--brown-dark);
   margin-bottom: 0.4rem;
-  font-weight: 400;
+  font-weight: 500;
 }
 .tl__desc {
-  font-size: 0.9rem;
-  color: rgba(245, 245, 220, 0.65);
-  line-height: 1.6;
+  font-size: 0.92rem;
+  color: var(--brown-soft);
+  line-height: 1.7;
+  font-family: 'Lora', serif;
 }
 
 @media (max-width: 600px) {
@@ -745,78 +837,122 @@ section { position: relative; }
 /* ============ RSVP ============ */
 .rsvp {
   padding: 10rem 2rem;
-  background: var(--jungle-deep);
+  background: var(--cream);
   text-align: center;
   position: relative;
   overflow: hidden;
 }
-.rsvp::before, .rsvp::after {
+
+/* Envelope flap decoration */
+.rsvp__envelope {
+  max-width: 700px;
+  margin: 0 auto;
+  position: relative;
+  padding: 4rem 3rem;
+  background: var(--cream-light);
+  border: 1px solid rgba(166, 124, 0, 0.2);
+  box-shadow: 0 8px 32px rgba(61, 40, 23, 0.08);
+}
+.rsvp__envelope::before {
   content: '';
   position: absolute;
-  width: 300px; height: 300px;
-  background: radial-gradient(circle, rgba(201, 162, 39, 0.06), transparent 70%);
-  border-radius: 50%;
-  pointer-events: none;
+  top: 0; left: 0; right: 0;
+  height: 50px;
+  background: var(--cream-dark);
+  clip-path: polygon(0 0, 50% 100%, 100% 0);
+  opacity: 0.5;
 }
-.rsvp::before { top: -100px; left: -100px; }
-.rsvp::after { bottom: -100px; right: -100px; }
 
-.rsvp__inner { max-width: 700px; margin: 0 auto; position: relative; z-index: 1; }
-.rsvp__title {
-  font-size: clamp(2.5rem, 5vw, 4rem);
+/* Wax seal on envelope */
+.rsvp__seal {
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 70px;
+  height: 70px;
+  z-index: 2;
+}
+.rsvp__seal svg { width: 100%; height: 100%; }
+.rsvp__seal .seal-bg {
+  fill: var(--wine);
+}
+.rsvp__seal .seal-border {
+  fill: none;
+  stroke: var(--gold);
+  stroke-width: 1;
+}
+.rsvp__seal text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  fill: var(--cream);
   font-style: italic;
-  font-weight: 300;
+  font-weight: 500;
+}
+
+.rsvp__inner { position: relative; z-index: 1; padding-top: 1rem; }
+.rsvp__title {
+  font-size: clamp(2.5rem, 5vw, 3.8rem);
+  font-style: italic;
+  font-weight: 400;
   margin: 1.5rem 0 1.5rem;
 }
 .rsvp__title em { color: var(--gold); font-style: normal; }
 .rsvp__text {
-  font-size: 1.05rem;
-  color: rgba(245, 245, 220, 0.75);
-  line-height: 1.7;
+  font-size: 1.02rem;
+  color: var(--brown-soft);
+  line-height: 1.8;
   margin-bottom: 0.75rem;
+  font-family: 'Lora', serif;
 }
 .rsvp__deadline {
+  font-family: 'Inter', sans-serif;
   font-size: 11px;
-  letter-spacing: 0.3em;
+  letter-spacing: 0.35em;
   text-transform: uppercase;
   color: var(--gold);
   margin: 2rem 0 3rem;
   display: block;
+  font-weight: 500;
 }
 .rsvp__btn {
   display: inline-flex;
   align-items: center;
   gap: 1rem;
-  padding: 1.2rem 2.5rem;
-  background: var(--gold);
-  color: var(--jungle-deep);
-  font-size: 12px;
+  padding: 1.1rem 2.5rem;
+  background: var(--brown-dark);
+  color: var(--cream);
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
   font-weight: 500;
-  letter-spacing: 0.3em;
+  letter-spacing: 0.35em;
   text-transform: uppercase;
-  transition: transform 300ms var(--ease-quiet), box-shadow 300ms;
-  position: relative;
-  overflow: hidden;
+  transition: transform 300ms var(--ease-quiet), background 300ms;
 }
 .rsvp__btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 12px 32px rgba(201, 162, 39, 0.3);
+  background: var(--gold);
 }
 .rsvp__btn svg { width: 14px; height: 14px; }
 
 .rsvp__hint {
   margin-top: 2rem;
-  font-size: 0.85rem;
-  color: rgba(245, 245, 220, 0.5);
+  font-size: 0.9rem;
+  color: var(--brown-light);
   font-style: italic;
   font-family: 'Cormorant Garamond', serif;
+}
+
+@media (max-width: 600px) {
+  .rsvp__envelope { padding: 3rem 1.5rem; }
 }
 
 /* ============ PLAYLIST ============ */
 .playlist {
   padding: 8rem 2rem;
-  background: var(--jungle-primary);
-  border-top: 1px solid rgba(201, 162, 39, 0.12);
+  background: var(--cream-light);
+  border-top: 1px solid rgba(166, 124, 0, 0.15);
+  border-bottom: 1px solid rgba(166, 124, 0, 0.15);
 }
 .playlist__grid {
   display: grid;
@@ -833,29 +969,30 @@ section { position: relative; }
   align-items: center;
   justify-content: center;
 }
+
+/* Sheet music inspired visual */
 .playlist__disc {
-  width: 80%;
+  width: 85%;
   aspect-ratio: 1;
   border-radius: 50%;
-  background:
-    radial-gradient(circle at center, var(--gold) 0%, var(--gold) 18%, var(--jungle-deep) 18.5%, var(--jungle-deep) 22%, var(--jungle-secondary) 22.5%, var(--jungle-primary) 100%);
+  background: radial-gradient(circle at center, var(--gold) 0%, var(--gold) 15%, var(--cream-dark) 15.5%, var(--cream-dark) 22%, var(--brown-dark) 22.5%, var(--brown) 100%);
   position: relative;
-  animation: spin-cw 25s linear infinite;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+  animation: spin-cw 30s linear infinite;
+  box-shadow: 0 12px 40px rgba(61, 40, 23, 0.25);
 }
 .playlist__disc::before {
   content: '';
   position: absolute;
-  inset: 30%;
+  inset: 32%;
   border-radius: 50%;
-  border: 1px solid rgba(201, 162, 39, 0.3);
+  border: 1px solid rgba(244, 236, 216, 0.2);
 }
 .playlist__disc::after {
   content: '';
   position: absolute;
-  inset: 45%;
+  inset: 46%;
   border-radius: 50%;
-  background: var(--jungle-deep);
+  background: var(--cream);
   border: 1px solid var(--gold);
 }
 .playlist__disc-label {
@@ -865,20 +1002,22 @@ section { position: relative; }
   z-index: 2;
   text-align: center;
   font-family: 'Cormorant Garamond', serif;
-  color: var(--gold);
+  color: var(--brown-dark);
   font-style: italic;
   font-size: 0.95rem;
   pointer-events: none;
+  animation: spin-ccw 30s linear infinite;
 }
 .playlist__disc-label span {
   display: block;
-  font-size: 9px;
-  letter-spacing: 0.3em;
+  font-size: 8px;
+  letter-spacing: 0.35em;
   text-transform: uppercase;
   margin-top: 0.4rem;
   font-family: 'Inter', sans-serif;
-  color: var(--ivory);
+  color: var(--gold);
   font-style: normal;
+  font-weight: 500;
 }
 
 .playlist__text > * {
@@ -892,21 +1031,21 @@ section { position: relative; }
 .is-in .playlist__text > *:nth-child(2) { transition-delay: 200ms; }
 .is-in .playlist__text > *:nth-child(3) { transition-delay: 300ms; }
 .is-in .playlist__text > *:nth-child(4) { transition-delay: 400ms; }
-.is-in .playlist__text > *:nth-child(5) { transition-delay: 500ms; }
 
 .playlist__title {
   font-size: clamp(2rem, 4vw, 3rem);
   font-style: italic;
-  font-weight: 300;
+  font-weight: 400;
   margin: 1.25rem 0 1.5rem;
 }
 .playlist__title em { color: var(--gold); font-style: normal; }
 .playlist__desc {
   font-size: 1rem;
-  line-height: 1.7;
-  color: rgba(245, 245, 220, 0.7);
+  line-height: 1.8;
+  color: var(--brown-soft);
   margin-bottom: 2rem;
   max-width: 460px;
+  font-family: 'Lora', serif;
 }
 .playlist__cta {
   display: inline-flex;
@@ -915,73 +1054,105 @@ section { position: relative; }
   padding: 0.9rem 1.6rem;
   border: 1px solid var(--gold);
   color: var(--gold);
+  font-family: 'Inter', sans-serif;
   font-size: 11px;
-  letter-spacing: 0.25em;
+  letter-spacing: 0.3em;
   text-transform: uppercase;
   font-weight: 500;
   transition: background 300ms, color 300ms;
 }
-.playlist__cta:hover { background: var(--gold); color: var(--jungle-deep); }
+.playlist__cta:hover { background: var(--gold); color: var(--cream); }
 .playlist__cta svg { width: 14px; height: 14px; }
 
 @media (max-width: 900px) {
   .playlist__grid { grid-template-columns: 1fr; gap: 3rem; }
 }
 
-/* ============ PRACTICAL INFO (DRESS / TRAVEL / GIFT) ============ */
+/* ============ PRACTICAL INFO (TRIPTYCH) ============ */
 .practical {
   padding: 10rem 2rem;
-  background: var(--jungle-deep);
+  background: var(--cream);
 }
 .practical__head { text-align: center; margin-bottom: 5rem; }
 .practical__head h2 {
   font-size: clamp(2.5rem, 5vw, 4rem);
   font-style: italic;
-  font-weight: 300;
+  font-weight: 400;
   margin-top: 1.5rem;
 }
 .practical__head h2 em { color: var(--gold); font-style: normal; }
 
+/* Triptych layout */
 .practical__grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 2.5rem;
+  gap: 0;
   max-width: 1300px;
   margin: 0 auto;
+  border: 1px solid rgba(166, 124, 0, 0.2);
+  background: var(--cream-light);
+  position: relative;
 }
+/* Triptych frame */
+.practical__grid::before,
+.practical__grid::after {
+  content: '';
+  position: absolute;
+  top: 0; bottom: 0;
+  width: 1px;
+  background: rgba(166, 124, 0, 0.2);
+}
+.practical__grid::before { left: 33.333%; }
+.practical__grid::after { left: 66.666%; }
+
 .pcard {
   padding: 3rem 2.5rem;
-  border: 1px solid rgba(201, 162, 39, 0.18);
-  background: rgba(13, 40, 24, 0.4);
   position: relative;
   opacity: 0;
   transform: translateY(40px);
-  transition: opacity 800ms var(--ease-quiet), transform 800ms var(--ease-quiet), border-color 400ms;
+  transition: opacity 800ms var(--ease-quiet), transform 800ms var(--ease-quiet);
 }
 .is-in .pcard { opacity: 1; transform: none; }
 .is-in .pcard:nth-child(1) { transition-delay: 100ms; }
 .is-in .pcard:nth-child(2) { transition-delay: 250ms; }
 .is-in .pcard:nth-child(3) { transition-delay: 400ms; }
-.pcard:hover { border-color: rgba(201, 162, 39, 0.5); }
 
-.pcard__icon {
-  width: 48px; height: 48px;
-  margin-bottom: 1.5rem;
-  color: var(--gold);
+/* Arch top for triptych panels */
+.pcard__arch {
+  width: 60px;
+  height: 80px;
+  margin: 0 auto 1.5rem;
+  border: 1.5px solid var(--gold);
+  border-bottom: none;
+  border-radius: 30px 30px 0 0;
+  position: relative;
 }
-.pcard__icon svg { width: 100%; height: 100%; }
+.pcard__arch::before {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 6px;
+  height: 6px;
+  background: var(--gold);
+  transform: translateX(-50%) rotate(45deg);
+}
+
 .pcard__title {
   font-family: 'Cormorant Garamond', serif;
-  font-size: 1.8rem;
-  font-weight: 400;
+  font-size: 1.7rem;
+  font-weight: 500;
   margin-bottom: 1rem;
   font-style: italic;
+  text-align: center;
 }
 .pcard__desc {
   font-size: 0.95rem;
-  line-height: 1.7;
-  color: rgba(245, 245, 220, 0.7);
+  line-height: 1.75;
+  color: var(--brown-soft);
   margin-bottom: 1.25rem;
+  font-family: 'Lora', serif;
 }
 .pcard__list {
   list-style: none;
@@ -989,42 +1160,48 @@ section { position: relative; }
 }
 .pcard__list li {
   font-size: 0.9rem;
-  padding: 0.6rem 0;
-  border-top: 1px solid rgba(201, 162, 39, 0.12);
-  color: rgba(245, 245, 220, 0.85);
+  padding: 0.7rem 0;
+  border-top: 1px solid rgba(166, 124, 0, 0.12);
+  color: var(--brown);
   display: flex;
   justify-content: space-between;
   gap: 1rem;
+  font-family: 'Lora', serif;
 }
 .pcard__list li span:last-child {
   color: var(--gold);
-  font-size: 0.85rem;
+  font-size: 0.88rem;
   font-family: 'Cormorant Garamond', serif;
   font-style: italic;
+  font-weight: 500;
 }
 .pcard__hint {
-  font-size: 0.85rem;
+  font-size: 0.88rem;
   color: var(--gold);
   font-style: italic;
   font-family: 'Cormorant Garamond', serif;
   margin-top: 1rem;
   display: block;
+  text-align: center;
 }
 
 @media (max-width: 900px) {
   .practical__grid { grid-template-columns: 1fr; }
+  .practical__grid::before, .practical__grid::after { display: none; }
+  .pcard { border-bottom: 1px solid rgba(166, 124, 0, 0.15); }
+  .pcard:last-child { border-bottom: none; }
 }
 
 /* ============ FAQ ============ */
 .faq {
   padding: 10rem 2rem;
-  background: var(--jungle-mid);
+  background: var(--cream-dark);
 }
 .faq__head { text-align: center; margin-bottom: 4rem; }
 .faq__head h2 {
   font-size: clamp(2.5rem, 5vw, 4rem);
   font-style: italic;
-  font-weight: 300;
+  font-weight: 400;
   margin-top: 1.5rem;
 }
 .faq__head h2 em { color: var(--gold); font-style: normal; }
@@ -1034,7 +1211,7 @@ section { position: relative; }
   margin: 0 auto;
 }
 .faq__item {
-  border-bottom: 1px solid rgba(201, 162, 39, 0.15);
+  border-bottom: 1px solid rgba(166, 124, 0, 0.18);
   opacity: 0;
   transform: translateY(20px);
   transition: opacity 600ms var(--ease-quiet), transform 600ms var(--ease-quiet);
@@ -1055,15 +1232,15 @@ section { position: relative; }
   cursor: pointer;
   font-family: 'Cormorant Garamond', serif;
   font-size: 1.35rem;
-  color: var(--ivory);
-  font-weight: 400;
+  color: var(--brown-dark);
+  font-weight: 500;
   gap: 2rem;
   transition: color 300ms;
 }
 .faq__q:hover { color: var(--gold); }
 .faq__q .toggle {
   flex-shrink: 0;
-  width: 24px; height: 24px;
+  width: 22px; height: 22px;
   position: relative;
 }
 .faq__q .toggle::before, .faq__q .toggle::after {
@@ -1092,30 +1269,32 @@ section { position: relative; }
 .faq__a-inner {
   padding: 0 0 1.5rem;
   font-size: 0.95rem;
-  line-height: 1.7;
-  color: rgba(245, 245, 220, 0.7);
+  line-height: 1.8;
+  color: var(--brown-soft);
+  font-family: 'Lora', serif;
 }
 .faq__item.open .faq__a { max-height: 300px; }
 
 /* ============ CONTACT ============ */
 .contact {
   padding: 10rem 2rem;
-  background: var(--jungle-deep);
+  background: var(--cream);
   text-align: center;
 }
 .contact__inner { max-width: 900px; margin: 0 auto; }
 .contact__title {
   font-size: clamp(2.5rem, 5vw, 4rem);
   font-style: italic;
-  font-weight: 300;
+  font-weight: 400;
   margin: 1.5rem 0 1rem;
 }
 .contact__title em { color: var(--gold); font-style: normal; }
 .contact__sub {
   font-size: 1rem;
-  color: rgba(245, 245, 220, 0.7);
+  color: var(--brown-soft);
   max-width: 540px;
   margin: 0 auto 4rem;
+  font-family: 'Lora', serif;
 }
 
 .contact__grid {
@@ -1125,38 +1304,68 @@ section { position: relative; }
 }
 .contact__card {
   padding: 2.5rem 2rem;
-  border: 1px solid rgba(201, 162, 39, 0.18);
-  background: rgba(13, 40, 24, 0.4);
-  transition: border-color 400ms, transform 400ms;
+  border: 1px solid rgba(166, 124, 0, 0.2);
+  background: var(--cream-light);
+  transition: border-color 400ms, transform 400ms, box-shadow 400ms;
   opacity: 0;
   transform: translateY(30px);
+  position: relative;
 }
 .is-in .contact__card {
   opacity: 1; transform: none;
-  transition: opacity 700ms var(--ease-quiet), transform 700ms var(--ease-quiet), border-color 400ms;
+  transition: opacity 700ms var(--ease-quiet), transform 700ms var(--ease-quiet), border-color 400ms, box-shadow 400ms;
 }
 .is-in .contact__card:nth-child(1) { transition-delay: 150ms; }
 .is-in .contact__card:nth-child(2) { transition-delay: 300ms; }
 .is-in .contact__card:nth-child(3) { transition-delay: 450ms; }
-.contact__card:hover { border-color: var(--gold); }
+.contact__card:hover {
+  border-color: var(--gold);
+  box-shadow: 0 8px 24px rgba(61, 40, 23, 0.1);
+}
+
+/* Small stamp/seal decoration on contact cards */
+.contact__card::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  right: 1.5rem;
+  width: 32px;
+  height: 32px;
+  border: 1.5px solid var(--gold);
+  border-radius: 50%;
+  background: var(--cream);
+  transform: translateY(-50%);
+}
+.contact__card::after {
+  content: '✦';
+  position: absolute;
+  top: -1px;
+  right: calc(1.5rem + 8px);
+  font-size: 14px;
+  color: var(--gold);
+  transform: translateY(-50%);
+  z-index: 1;
+}
 
 .contact__role {
+  font-family: 'Inter', sans-serif;
   font-size: 10px;
-  letter-spacing: 0.3em;
+  letter-spacing: 0.35em;
   text-transform: uppercase;
   color: var(--gold);
   margin-bottom: 1rem;
+  font-weight: 500;
 }
 .contact__name {
   font-family: 'Cormorant Garamond', serif;
   font-size: 1.6rem;
-  font-weight: 400;
+  font-weight: 500;
   margin-bottom: 1.25rem;
 }
 .contact__phone {
   font-family: 'Cormorant Garamond', serif;
   font-size: 1.1rem;
-  color: var(--ivory);
+  color: var(--brown);
   font-style: italic;
   letter-spacing: 0.05em;
 }
@@ -1168,28 +1377,51 @@ section { position: relative; }
 /* ============ FOOTER ============ */
 .footer {
   padding: 6rem 2rem 4rem;
-  background: var(--jungle-mid);
+  background: var(--cream-dark);
   text-align: center;
-  border-top: 1px solid rgba(201, 162, 39, 0.15);
+  border-top: 1px solid rgba(166, 124, 0, 0.2);
+  position: relative;
+  overflow: hidden;
 }
+
+/* Church silhouette at bottom of footer */
+.footer__silhouette {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(90%, 500px);
+  opacity: 0.06;
+  pointer-events: none;
+}
+.footer__silhouette svg {
+  width: 100%;
+  height: auto;
+  color: var(--brown-dark);
+}
+
+.footer__content { position: relative; z-index: 1; }
 .footer__monogram {
   font-family: 'Cormorant Garamond', serif;
   font-size: 3rem;
   color: var(--gold);
   margin-bottom: 1.5rem;
   font-style: italic;
+  font-weight: 400;
 }
-.footer__monogram span { color: var(--ivory); font-style: normal; padding: 0 0.5rem; }
+.footer__monogram span { color: var(--brown-dark); font-style: normal; padding: 0 0.5rem; }
 .footer__date {
+  font-family: 'Inter', sans-serif;
   font-size: 11px;
-  letter-spacing: 0.35em;
+  letter-spacing: 0.4em;
   text-transform: uppercase;
-  color: rgba(245, 245, 220, 0.6);
+  color: var(--brown-soft);
   margin-bottom: 2rem;
+  font-weight: 500;
 }
 .footer__credit {
-  font-size: 0.8rem;
-  color: rgba(245, 245, 220, 0.4);
+  font-size: 0.85rem;
+  color: var(--brown-light);
   font-style: italic;
   font-family: 'Cormorant Garamond', serif;
 }
@@ -1201,14 +1433,15 @@ section { position: relative; }
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
-  .leaf.sway svg { animation: none; }
-  .hero__bg img, .zigzag__img img, .venue__img img { animation: none; }
-  .playlist__disc { animation: none; }
+  .olive-branch.sway svg { animation: none; }
+  .hero__facade, .zigzag__img img, .venue__img img { animation: none; }
+  .playlist__disc, .playlist__disc-label { animation: none; }
+  .hero__seal .seal-rotate { animation: none; }
 }
 
 /* Touch device fallbacks */
 @media (pointer: coarse) {
-  .leaf { transition: opacity 1200ms var(--ease-quiet) !important; }
+  .olive-branch { transition: opacity 1200ms var(--ease-quiet) !important; }
 }
 </style>
 </head>
@@ -1229,50 +1462,165 @@ section { position: relative; }
 
 <!-- HERO -->
 <section class="hero" id="hero">
-  <div class="hero__bg">
-    <img src="https://picsum.photos/seed/jungle-canopy-deep/1800/1200" alt="">
+  <div class="hero__frame"></div>
+
+  <!-- Church facade watermark SVG -->
+  <div class="hero__facade">
+    <svg viewBox="0 0 600 420" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round">
+      <!-- Ground line -->
+      <line x1="20" y1="400" x2="580" y2="400"/>
+      <!-- Base plinth -->
+      <rect x="60" y="390" width="480" height="12"/>
+      <!-- Main facade body -->
+      <rect x="80" y="120" width="440" height="270"/>
+      <!-- Left tower -->
+      <rect x="80" y="120" width="80" height="270"/>
+      <!-- Right tower -->
+      <rect x="440" y="120" width="80" height="270"/>
+      <!-- Cornice lines -->
+      <line x1="80" y1="200" x2="520" y2="200"/>
+      <line x1="80" y1="280" x2="520" y2="280"/>
+
+      <!-- Central arched entrance -->
+      <path d="M255,390 L255,260 Q255,210 300,210 Q345,210 345,260 L345,390"/>
+      <path d="M265,390 L265,265 Q265,225 300,225 Q335,225 335,265 L335,390"/>
+      <line x1="300" y1="260" x2="300" y2="390"/>
+
+      <!-- Entrance columns -->
+      <rect x="225" y="210" width="15" height="180"/>
+      <rect x="360" y="210" width="15" height="180"/>
+      <rect x="242" y="210" width="8" height="180"/>
+      <rect x="350" y="210" width="8" height="180"/>
+
+      <!-- Upper level -->
+      <rect x="170" y="60" width="260" height="60"/>
+      <!-- Central niche -->
+      <path d="M275,120 L275,85 Q275,65 300,65 Q325,65 325,85 L325,120"/>
+      <!-- Niche statue suggestion -->
+      <line x1="300" y1="75" x2="300" y2="110"/>
+
+      <!-- Upper level columns -->
+      <rect x="185" y="60" width="12" height="60"/>
+      <rect x="207" y="60" width="12" height="60"/>
+      <rect x="381" y="60" width="12" height="60"/>
+      <rect x="403" y="60" width="12" height="60"/>
+
+      <!-- Curved baroque pediment -->
+      <path d="M170,60 Q220,25 300,20 Q380,25 430,60"/>
+      <!-- Pediment ornaments -->
+      <circle cx="170" cy="60" r="5"/>
+      <circle cx="430" cy="60" r="5"/>
+      <circle cx="220" cy="40" r="3"/>
+      <circle cx="380" cy="40" r="3"/>
+
+      <!-- Cross on top -->
+      <line x1="300" y1="5" x2="300" y2="25"/>
+      <line x1="290" y1="13" x2="310" y2="13"/>
+
+      <!-- Left tower windows -->
+      <path d="M95,230 L95,270 Q95,250 110,250 Q125,250 125,270 L125,230 Z"/>
+      <path d="M95,310 L95,350 Q95,330 110,330 Q125,330 125,350 L125,310 Z"/>
+
+      <!-- Right tower windows -->
+      <path d="M475,230 L475,270 Q475,250 490,250 Q505,250 505,270 L505,230 Z"/>
+      <path d="M475,310 L475,350 Q475,330 490,330 Q505,330 505,350 L505,310 Z"/>
+
+      <!-- Central window upper -->
+      <path d="M280,140 L280,175 Q280,160 300,160 Q320,160 320,175 L320,140 Z"/>
+      <circle cx="300" cy="155" r="4"/>
+
+      <!-- Decorative details -->
+      <line x1="160" y1="155" x2="170" y2="155"/>
+      <line x1="430" y1="155" x2="440" y2="155"/>
+      <line x1="160" y1="240" x2="170" y2="240"/>
+      <line x1="430" y1="240" x2="440" y2="240"/>
+
+      <!-- Tower tops -->
+      <path d="M80,120 Q120,95 160,120"/>
+      <path d="M440,120 Q480,95 520,120"/>
+
+      <!-- Tower ornaments -->
+      <circle cx="100" cy="140" r="3"/>
+      <circle cx="120" cy="140" r="3"/>
+      <circle cx="480" cy="140" r="3"/>
+      <circle cx="500" cy="140" r="3"/>
+    </svg>
   </div>
 
-  <!-- Scattered leaves -->
-  <div class="leaf leaf--1 sway" data-base-rot="-8">
-    <svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg">
-      <path d="M50,5 C25,25 20,70 50,115 C80,70 75,25 50,5 Z" fill="none" stroke="currentColor" stroke-width="1"/>
-      <path d="M50,15 L50,108" stroke="currentColor" stroke-width="0.8" fill="none"/>
-      <path d="M50,35 Q40,40 33,48 M50,35 Q60,40 67,48" stroke="currentColor" stroke-width="0.6" fill="none"/>
-      <path d="M50,55 Q35,62 27,72 M50,55 Q65,62 73,72" stroke="currentColor" stroke-width="0.6" fill="none"/>
-      <path d="M50,80 Q38,87 30,97 M50,80 Q62,87 70,97" stroke="currentColor" stroke-width="0.6" fill="none"/>
+  <!-- Scattered olive branches -->
+  <div class="olive-branch olive-branch--1 sway" data-base-rot="-15">
+    <svg viewBox="0 0 100 200" xmlns="http://www.w3.org/2000/svg">
+      <path d="M50,200 Q48,150 50,100 Q52,50 50,0" fill="none" stroke="currentColor" stroke-width="0.8"/>
+      <ellipse cx="35" cy="180" rx="11" ry="3.5" transform="rotate(-30 35 180)" fill="currentColor" opacity="0.6"/>
+      <ellipse cx="38" cy="160" rx="11" ry="3.5" transform="rotate(-25 38 160)" fill="currentColor" opacity="0.6"/>
+      <ellipse cx="35" cy="140" rx="11" ry="3.5" transform="rotate(-35 35 140)" fill="currentColor" opacity="0.6"/>
+      <ellipse cx="38" cy="120" rx="11" ry="3.5" transform="rotate(-25 38 120)" fill="currentColor" opacity="0.6"/>
+      <ellipse cx="35" cy="100" rx="11" ry="3.5" transform="rotate(-30 35 100)" fill="currentColor" opacity="0.6"/>
+      <ellipse cx="38" cy="80" rx="11" ry="3.5" transform="rotate(-25 38 80)" fill="currentColor" opacity="0.6"/>
+      <ellipse cx="35" cy="60" rx="11" ry="3.5" transform="rotate(-35 35 60)" fill="currentColor" opacity="0.6"/>
+      <ellipse cx="38" cy="40" rx="11" ry="3.5" transform="rotate(-25 38 40)" fill="currentColor" opacity="0.6"/>
+      <ellipse cx="35" cy="20" rx="11" ry="3.5" transform="rotate(-30 35 20)" fill="currentColor" opacity="0.6"/>
+      <ellipse cx="65" cy="170" rx="11" ry="3.5" transform="rotate(30 65 170)" fill="currentColor" opacity="0.6"/>
+      <ellipse cx="62" cy="150" rx="11" ry="3.5" transform="rotate(25 62 150)" fill="currentColor" opacity="0.6"/>
+      <ellipse cx="65" cy="130" rx="11" ry="3.5" transform="rotate(35 65 130)" fill="currentColor" opacity="0.6"/>
+      <ellipse cx="62" cy="110" rx="11" ry="3.5" transform="rotate(25 62 110)" fill="currentColor" opacity="0.6"/>
+      <ellipse cx="65" cy="90" rx="11" ry="3.5" transform="rotate(30 65 90)" fill="currentColor" opacity="0.6"/>
+      <ellipse cx="62" cy="70" rx="11" ry="3.5" transform="rotate(25 62 70)" fill="currentColor" opacity="0.6"/>
+      <ellipse cx="65" cy="50" rx="11" ry="3.5" transform="rotate(35 65 50)" fill="currentColor" opacity="0.6"/>
+      <ellipse cx="62" cy="30" rx="11" ry="3.5" transform="rotate(25 62 30)" fill="currentColor" opacity="0.6"/>
+      <ellipse cx="65" cy="10" rx="11" ry="3.5" transform="rotate(30 65 10)" fill="currentColor" opacity="0.6"/>
     </svg>
   </div>
-  <div class="leaf leaf--2 sway" data-base-rot="15">
-    <svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg">
-      <path d="M50,5 C25,25 20,70 50,115 C80,70 75,25 50,5 Z" fill="none" stroke="currentColor" stroke-width="1"/>
-      <path d="M50,15 L50,108" stroke="currentColor" stroke-width="0.8" fill="none"/>
-      <path d="M50,35 Q40,40 33,48 M50,35 Q60,40 67,48" stroke="currentColor" stroke-width="0.6" fill="none"/>
-      <path d="M50,55 Q35,62 27,72 M50,55 Q65,62 73,72" stroke="currentColor" stroke-width="0.6" fill="none"/>
+
+  <div class="olive-branch olive-branch--2 sway" data-base-rot="20">
+    <svg viewBox="0 0 100 200" xmlns="http://www.w3.org/2000/svg">
+      <path d="M50,200 Q48,150 50,100 Q52,50 50,0" fill="none" stroke="currentColor" stroke-width="0.8"/>
+      <ellipse cx="35" cy="180" rx="10" ry="3.5" transform="rotate(-30 35 180)" fill="currentColor" opacity="0.6"/>
+      <ellipse cx="38" cy="160" rx="10" ry="3.5" transform="rotate(-25 38 160)" fill="currentColor" opacity="0.6"/>
+      <ellipse cx="35" cy="140" rx="10" ry="3.5" transform="rotate(-35 35 140)" fill="currentColor" opacity="0.6"/>
+      <ellipse cx="38" cy="120" rx="10" ry="3.5" transform="rotate(-25 38 120)" fill="currentColor" opacity="0.6"/>
+      <ellipse cx="35" cy="100" rx="10" ry="3.5" transform="rotate(-30 35 100)" fill="currentColor" opacity="0.6"/>
+      <ellipse cx="38" cy="80" rx="10" ry="3.5" transform="rotate(-25 38 80)" fill="currentColor" opacity="0.6"/>
+      <ellipse cx="65" cy="170" rx="10" ry="3.5" transform="rotate(30 65 170)" fill="currentColor" opacity="0.6"/>
+      <ellipse cx="62" cy="150" rx="10" ry="3.5" transform="rotate(25 62 150)" fill="currentColor" opacity="0.6"/>
+      <ellipse cx="65" cy="130" rx="10" ry="3.5" transform="rotate(35 65 130)" fill="currentColor" opacity="0.6"/>
+      <ellipse cx="62" cy="110" rx="10" ry="3.5" transform="rotate(25 62 110)" fill="currentColor" opacity="0.6"/>
+      <ellipse cx="65" cy="90" rx="10" ry="3.5" transform="rotate(30 65 90)" fill="currentColor" opacity="0.6"/>
+      <ellipse cx="62" cy="70" rx="10" ry="3.5" transform="rotate(25 62 70)" fill="currentColor" opacity="0.6"/>
     </svg>
   </div>
-  <div class="leaf leaf--3 sway" data-base-rot="-20">
-    <svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg">
-      <path d="M50,5 C25,25 20,70 50,115 C80,70 75,25 50,5 Z" fill="none" stroke="currentColor" stroke-width="1"/>
-      <path d="M50,15 L50,108" stroke="currentColor" stroke-width="0.8" fill="none"/>
-      <path d="M50,35 Q40,40 33,48 M50,35 Q60,40 67,48" stroke="currentColor" stroke-width="0.6" fill="none"/>
-      <path d="M50,55 Q35,62 27,72 M50,55 Q65,62 73,72" stroke="currentColor" stroke-width="0.6" fill="none"/>
+
+  <div class="olive-branch olive-branch--3 sway" data-base-rot="8">
+    <svg viewBox="0 0 100 200" xmlns="http://www.w3.org/2000/svg">
+      <path d="M50,200 Q48,150 50,100 Q52,50 50,0" fill="none" stroke="currentColor" stroke-width="0.8"/>
+      <ellipse cx="35" cy="170" rx="9" ry="3" transform="rotate(-30 35 170)" fill="currentColor" opacity="0.6"/>
+      <ellipse cx="38" cy="145" rx="9" ry="3" transform="rotate(-25 38 145)" fill="currentColor" opacity="0.6"/>
+      <ellipse cx="35" cy="120" rx="9" ry="3" transform="rotate(-35 35 120)" fill="currentColor" opacity="0.6"/>
+      <ellipse cx="38" cy="95" rx="9" ry="3" transform="rotate(-25 38 95)" fill="currentColor" opacity="0.6"/>
+      <ellipse cx="35" cy="70" rx="9" ry="3" transform="rotate(-30 35 70)" fill="currentColor" opacity="0.6"/>
+      <ellipse cx="65" cy="155" rx="9" ry="3" transform="rotate(30 65 155)" fill="currentColor" opacity="0.6"/>
+      <ellipse cx="62" cy="130" rx="9" ry="3" transform="rotate(25 62 130)" fill="currentColor" opacity="0.6"/>
+      <ellipse cx="65" cy="105" rx="9" ry="3" transform="rotate(35 65 105)" fill="currentColor" opacity="0.6"/>
+      <ellipse cx="62" cy="80" rx="9" ry="3" transform="rotate(25 62 80)" fill="currentColor" opacity="0.6"/>
     </svg>
   </div>
-  <div class="leaf leaf--4 sway" data-base-rot="12">
-    <svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg">
-      <path d="M50,5 C25,25 20,70 50,115 C80,70 75,25 50,5 Z" fill="none" stroke="currentColor" stroke-width="1"/>
-      <path d="M50,15 L50,108" stroke="currentColor" stroke-width="0.8" fill="none"/>
-      <path d="M50,35 Q40,40 33,48 M50,35 Q60,40 67,48" stroke="currentColor" stroke-width="0.6" fill="none"/>
-      <path d="M50,55 Q35,62 27,72 M50,55 Q65,62 73,72" stroke="currentColor" stroke-width="0.6" fill="none"/>
-      <path d="M50,80 Q38,87 30,97 M50,80 Q62,87 70,97" stroke="currentColor" stroke-width="0.6" fill="none"/>
-    </svg>
-  </div>
-  <div class="leaf leaf--5 sway" data-base-rot="-5">
-    <svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg">
-      <path d="M50,5 C25,25 20,70 50,115 C80,70 75,25 50,5 Z" fill="none" stroke="currentColor" stroke-width="1"/>
-      <path d="M50,15 L50,108" stroke="currentColor" stroke-width="0.8" fill="none"/>
-      <path d="M50,35 Q40,40 33,48 M50,35 Q60,40 67,48" stroke="currentColor" stroke-width="0.6" fill="none"/>
+
+  <div class="olive-branch olive-branch--4 sway" data-base-rot="-12">
+    <svg viewBox="0 0 100 200" xmlns="http://www.w3.org/2000/svg">
+      <path d="M50,200 Q48,150 50,100 Q52,50 50,0" fill="none" stroke="currentColor" stroke-width="0.8"/>
+      <ellipse cx="35" cy="180" rx="11" ry="3.5" transform="rotate(-30 35 180)" fill="currentColor" opacity="0.6"/>
+      <ellipse cx="38" cy="160" rx="11" ry="3.5" transform="rotate(-25 38 160)" fill="currentColor" opacity="0.6"/>
+      <ellipse cx="35" cy="140" rx="11" ry="3.5" transform="rotate(-35 35 140)" fill="currentColor" opacity="0.6"/>
+      <ellipse cx="38" cy="120" rx="11" ry="3.5" transform="rotate(-25 38 120)" fill="currentColor" opacity="0.6"/>
+      <ellipse cx="35" cy="100" rx="11" ry="3.5" transform="rotate(-30 35 100)" fill="currentColor" opacity="0.6"/>
+      <ellipse cx="38" cy="80" rx="11" ry="3.5" transform="rotate(-25 38 80)" fill="currentColor" opacity="0.6"/>
+      <ellipse cx="35" cy="60" rx="11" ry="3.5" transform="rotate(-35 35 60)" fill="currentColor" opacity="0.6"/>
+      <ellipse cx="65" cy="170" rx="11" ry="3.5" transform="rotate(30 65 170)" fill="currentColor" opacity="0.6"/>
+      <ellipse cx="62" cy="150" rx="11" ry="3.5" transform="rotate(25 62 150)" fill="currentColor" opacity="0.6"/>
+      <ellipse cx="65" cy="130" rx="11" ry="3.5" transform="rotate(35 65 130)" fill="currentColor" opacity="0.6"/>
+      <ellipse cx="62" cy="110" rx="11" ry="3.5" transform="rotate(25 62 110)" fill="currentColor" opacity="0.6"/>
+      <ellipse cx="65" cy="90" rx="11" ry="3.5" transform="rotate(30 65 90)" fill="currentColor" opacity="0.6"/>
+      <ellipse cx="62" cy="70" rx="11" ry="3.5" transform="rotate(25 62 70)" fill="currentColor" opacity="0.6"/>
     </svg>
   </div>
 
@@ -1288,22 +1636,25 @@ section { position: relative; }
       <span class="dot"></span>
       <span>Zaragoza</span>
     </div>
+    <p class="hero__sub">Iglesia de Santa Isabel de Portugal</p>
   </div>
 
-  <!-- Spinning badge -->
-  <div class="hero__badge">
+  <!-- Wax seal badge -->
+  <div class="hero__seal">
     <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
       <defs>
-        <path id="textcircle" d="M 100,100 m -78,0 a 78,78 0 1,1 156,0 a 78,78 0 1,1 -156,0" />
+        <path id="sealcircle" d="M 100,100 m -78,0 a 78,78 0 1,1 156,0 a 78,78 0 1,1 -156,0" />
       </defs>
-      <g class="badge-rotate">
+      <circle cx="100" cy="100" r="88" fill="none" stroke="currentColor" stroke-width="0.5" opacity="0.3"/>
+      <circle cx="100" cy="100" r="82" fill="none" stroke="currentColor" stroke-width="1" opacity="0.5"/>
+      <g class="seal-rotate">
         <text>
-          <textPath href="#textcircle" startOffset="0">
-            SAVE THE DATE · 19·06·2027 · ZARAGOZA · 
+          <textPath href="#sealcircle" startOffset="0">
+            · LORENA · Y · VÍCTOR · 19 · 06 · 2027 · ZARAGOZA ·
           </textPath>
         </text>
       </g>
-      <text x="100" y="108" text-anchor="middle" class="badge-center">L&amp;V</text>
+      <text x="100" y="112" text-anchor="middle" class="seal-center">L&amp;V</text>
     </svg>
   </div>
 
@@ -1362,34 +1713,34 @@ section { position: relative; }
     <div class="zigzag">
       <div class="zigzag__item" data-reveal>
         <div class="zigzag__text" data-text>
-          <span class="zigzag__year">2019 · OTOÑO</span>
+          <span class="zigzag__year">2019 · Otoño</span>
           <h3 class="zigzag__title">Una <em>tarde</em> cualquiera</h3>
           <p class="zigzag__desc">Nos cruzamos por primera vez en una cafetería del Casco Histórico de Zaragoza. Una conversación sobre libros interminables y cafés que se enfriaron sin darnos cuenta. Aquel día, ninguno de los dos imaginaba lo que estaba empezando.</p>
         </div>
         <div class="zigzag__img" data-img>
-          <img src="https://picsum.photos/seed/couple-cafe-autumn/800/1000" alt="">
+          <img src="https://picsum.photos/seed/autumn-cafe-couple-warm/800/1000" alt="">
         </div>
       </div>
 
       <div class="zigzag__item" data-reverse data-reveal>
         <div class="zigzag__text" data-text>
-          <span class="zigzag__year">2021 · VERANO</span>
+          <span class="zigzag__year">2021 · Verano</span>
           <h3 class="zigzag__title">El <em>viaje</em> que lo cambió todo</h3>
-          <p class="zigzag__desc">Un road trip por la costa norte, sin prácticamente plan y con un mapa que apenas consultamos.Entre acantilados y pueblos pesqueros, descubrimos que queríamos seguir viajando juntos el resto de la vida.</p>
+          <p class="zigzag__desc">Un road trip por la costa norte, sin prácticamente plan y con un mapa que apenas consultamos. Entre acantilados y pueblos pesqueros, descubrimos que queríamos seguir viajando juntos el resto de la vida.</p>
         </div>
         <div class="zigzag__img" data-img>
-          <img src="https://picsum.photos/seed/couple-coast-trip/800/1000" alt="">
+          <img src="https://picsum.photos/seed/summer-coast-trip-golden/800/1000" alt="">
         </div>
       </div>
 
       <div class="zigzag__item" data-reveal>
         <div class="zigzag__text" data-text>
-          <span class="zigzag__year">2025 · PRIMAVERA</span>
+          <span class="zigzag__year">2025 · Primavera</span>
           <h3 class="zigzag__title">La <em>pregunta</em></h3>
           <p class="zigzag__desc">En el mismo lugar donde todo empezó, con una tarde de luz dorada sobre el Ebro y una sortija que temblaba en el bolsillo. Ella dijo "sí" antes de que la pregunta terminara. Y desde entonces, este día dejó de ser una fecha lejana.</p>
         </div>
         <div class="zigzag__img" data-img>
-          <img src="https://picsum.photos/seed/proposal-river-gold/800/1000" alt="">
+          <img src="https://picsum.photos/seed/proposal-river-warm-spring/800/1000" alt="">
         </div>
       </div>
     </div>
@@ -1400,7 +1751,7 @@ section { position: relative; }
 <section class="venue venue--ceremony" id="ceremony" data-reveal>
   <div class="venue__grid">
     <div class="venue__img">
-      <img src="https://picsum.photos/seed/church-santa-isabel-zaragoza/900/1200" alt="Iglesia de Santa Isabel de Portugal">
+      <img src="https://picsum.photos/seed/baroque-church-golden-stone-facade/900/1200" alt="Iglesia de Santa Isabel de Portugal">
     </div>
     <div class="venue__text">
       <span class="eyebrow">La ceremonia</span>
@@ -1434,7 +1785,7 @@ section { position: relative; }
 <section class="venue venue--reception" id="reception" data-reveal>
   <div class="venue__grid">
     <div class="venue__img">
-      <img src="https://picsum.photos/seed/restaurant-sella-garden/900/1200" alt="Restaurante El Sella">
+      <img src="https://picsum.photos/seed/garden-restaurant-warm-evening-cream/900/1200" alt="Restaurante El Sella">
     </div>
     <div class="venue__text">
       <span class="eyebrow">La celebración</span>
@@ -1502,7 +1853,7 @@ section { position: relative; }
         <div class="tl__time">14:30</div>
         <div class="tl__body">
           <h3 class="tl__title">Cóctel de bienvenida</h3>
-          <p class="tl__desc">Aperitivos y bebidas en los jardines de El Sella. Tiempo para reencontrarnos, charrar y brindar antes de la comida.</p>
+          <p class="tl__desc">Aperitivos y bebidas en los jardines de El Sella. Tiempo para reencontrarnos, charlar y brindar antes de la comida.</p>
         </div>
       </div>
       <div class="tl__item">
@@ -1532,17 +1883,28 @@ section { position: relative; }
 
 <!-- RSVP -->
 <section class="rsvp" id="rsvp" data-reveal>
-  <div class="rsvp__inner">
-    <span class="eyebrow">Confirmación de asistencia</span>
-    <h2 class="rsvp__title">¿Nos <em>acompañáis</em>?</h2>
-    <p class="rsvp__text">Para nosotros es imprescindible saber si podréis estar presentes. Cada invitado cuenta, y nos gustaría prepararlo todo con cariño.</p>
-    <p class="rsvp__text">Por favor, rellenad el formulario antes de la fecha límite.</p>
-    <span class="rsvp__deadline">Fecha límite · 19 de marzo de 2027</span>
-    <a class="rsvp__btn" href="https://forms.gle/PLACEHOLDER" target="_blank" rel="noopener">
-      Confirmar asistencia
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-    </a>
-    <p class="rsvp__hint">Si tenéis cualquier duda con el formulario, escribidnos directamente.</p>
+  <div class="rsvp__envelope">
+    <!-- Wax seal on envelope -->
+    <div class="rsvp__seal">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="50" cy="50" r="42" class="seal-bg"/>
+        <circle cx="50" cy="50" r="38" class="seal-border"/>
+        <text x="50" y="58" text-anchor="middle">L&amp;V</text>
+      </svg>
+    </div>
+
+    <div class="rsvp__inner">
+      <span class="eyebrow">Confirmación de asistencia</span>
+      <h2 class="rsvp__title">¿Nos <em>acompañáis</em>?</h2>
+      <p class="rsvp__text">Para nosotros es imprescindible saber si podréis estar presentes. Cada invitado cuenta, y nos gustaría prepararlo todo con cariño.</p>
+      <p class="rsvp__text">Por favor, rellenad el formulario antes de la fecha límite.</p>
+      <span class="rsvp__deadline">Fecha límite · 19 de marzo de 2027</span>
+      <a class="rsvp__btn" href="https://forms.gle/PLACEHOLDER" target="_blank" rel="noopener">
+        Confirmar asistencia
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      <p class="rsvp__hint">Si tenéis cualquier duda con el formulario, escribidnos directamente.</p>
+    </div>
   </div>
 </section>
 
@@ -1568,7 +1930,7 @@ section { position: relative; }
   </div>
 </section>
 
-<!-- PRACTICAL INFO -->
+<!-- PRACTICAL INFO (TRIPTYCH) -->
 <section class="practical" data-reveal>
   <div class="container">
     <div class="practical__head">
@@ -1578,26 +1940,14 @@ section { position: relative; }
 
     <div class="practical__grid">
       <div class="pcard">
-        <div class="pcard__icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
-            <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
-            <rect x="8" y="2" width="8" height="4" rx="1"/>
-            <path d="M9 14l2 2 4-4"/>
-          </svg>
-        </div>
+        <div class="pcard__arch"></div>
         <h3 class="pcard__title">Código de vestuario</h3>
         <p class="pcard__desc">Elegante. Os pedimos evitar el color blanco, marfil y tonos similares reservados para la novia. Para mujeres, se recomienda tacón cómodo dado que parte de la celebración será en jardín.</p>
         <span class="pcard__hint">Hombres: traje oscuro · Mujeres: largo o cóctel</span>
       </div>
 
       <div class="pcard">
-        <div class="pcard__icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
-            <path d="M3 21V8l9-5 9 5v13"/>
-            <path d="M9 21V12h6v9"/>
-            <path d="M3 21h18"/>
-          </svg>
-        </div>
+        <div class="pcard__arch"></div>
         <h3 class="pcard__title">Alojamiento</h3>
         <p class="pcard__desc">Hemos gestionado tarifas especiales en varios hoteles del centro de Zaragoza para los invitados que vengan de fuera. Reservad con antelación mencionando nuestra boda.</p>
         <ul class="pcard__list">
@@ -1609,17 +1959,12 @@ section { position: relative; }
       </div>
 
       <div class="pcard">
-        <div class="pcard__icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
-            <rect x="3" y="8" width="18" height="13" rx="2"/>
-            <path d="M3 12h18M12 8v13"/>
-          </svg>
-        </div>
+        <div class="pcard__arch"></div>
         <h3 class="pcard__title">Mesa de regalos</h3>
-        <p class="pcard__desc">El mejor regalo es que estéis ahí. Para quienes queráis añadiros, hemos habilitado una cuenta para nuestro viaje de novios y proyectos conjuntos.</p>
+        <p class="pcard__desc">El mejor regalo es que estéis ahí. Para quienes queráis añadir, hemos habilitado una cuenta para nuestro viaje de novios y proyectos conjuntos.</p>
         <ul class="pcard__list">
           <li><span>Titular</span><span>Lorena & Víctor</span></li>
-          <li><span>IBAN</span><span>ES00 0000 0000 0000 0000 0000</span></li>
+          <li><span>IBAN</span><span>ES00 0000 0000 0000</span></li>
           <li><span>Concepto</span><span>"Boda L&amp;V"</span></li>
         </ul>
         <span class="pcard__hint">Gracias de corazón por vuestro cariño.</span>
@@ -1683,7 +2028,7 @@ section { position: relative; }
           <span class="toggle"></span>
         </div>
         <div class="faq__a">
-          <div class="faq__a-inner">Junio en Zaragoza es cálido y seco, con temperaturas que pueden superar los 30°C por la tarde. La ceremonia y el cóctel serán en espacios con sombra. Hidrataos bien yTraed protección solar.</div>
+          <div class="faq__a-inner">Junio en Zaragoza es cálido y seco, con temperaturas que pueden superar los 30°C por la tarde. La ceremonia y el cóctel serán en espacios con sombra. Hidrataos bien y traed protección solar.</div>
         </div>
       </div>
 
@@ -1729,9 +2074,34 @@ section { position: relative; }
 
 <!-- FOOTER -->
 <footer class="footer">
-  <div class="footer__monogram">L <span>&amp;</span> V</div>
-  <div class="footer__date">19 · 06 · 2027 · Zaragoza</div>
-  <div class="footer__credit">Hecho con cariño para compartir nuestro día. Gracias por acompañarnos.</div>
+  <!-- Church silhouette -->
+  <div class="footer__silhouette">
+    <svg viewBox="0 0 600 200" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+      <rect x="60" y="80" width="480" height="120"/>
+      <rect x="60" y="40" width="80" height="160"/>
+      <rect x="460" y="40" width="80" height="160"/>
+      <path d="M60,40 Q100,20 140,40 Z"/>
+      <path d="M460,40 Q500,20 540,40 Z"/>
+      <rect x="250" y="100" width="100" height="100"/>
+      <path d="M250,100 Q300,60 350,100 Z"/>
+      <rect x="295" y="20" width="10" height="50"/>
+      <rect x="280" y="35" width="40" height="8"/>
+      <path d="M180,40 Q300,0 420,40 Z"/>
+      <circle cx="180" cy="40" r="6"/>
+      <circle cx="420" cy="40" r="6"/>
+    </svg>
+  </div>
+
+  <div class="footer__content">
+    <div class="footer__monogram">L <span>&amp;</span> V</div>
+    <div class="ornament">
+      <span class="ornament__line"></span>
+      <div class="ornament__diamond"></div>
+      <span class="ornament__line ornament__line--right"></span>
+    </div>
+    <div class="footer__date">19 · 06 · 2027 · Zaragoza</div>
+    <div class="footer__credit">Hecho con cariño para compartir nuestro día. Gracias por acompañarnos.</div>
+  </div>
 </footer>
 
 <script>
@@ -1765,17 +2135,16 @@ document.querySelectorAll('a[href^="#"]').forEach(link => {
   });
 });
 
-// ============ HERO SCATTERED LEAVES ============
+// ============ HERO SCATTERED OLIVE BRANCHES ============
 const isCoarse = window.matchMedia('(pointer: coarse)').matches;
-const leaves = document.querySelectorAll('.leaf');
+const branches = document.querySelectorAll('.olive-branch');
 
-// Set initial state and trigger entrance
-leaves.forEach((leaf, i) => {
-  const rot = parseFloat(leaf.dataset.baseRot || '0');
-  leaf.style.transform = `scale(0.8) rotate(${rot - 5}deg)`;
+branches.forEach((branch, i) => {
+  const rot = parseFloat(branch.dataset.baseRot || '0');
+  branch.style.transform = `scale(0.8) rotate(${rot - 5}deg)`;
   setTimeout(() => {
-    leaf.classList.add('in');
-    leaf.style.transform = `scale(1) rotate(${rot}deg)`;
+    branch.classList.add('in');
+    branch.style.transform = `scale(1) rotate(${rot}deg)`;
   }, 200 + i * 120);
 });
 
@@ -1783,19 +2152,19 @@ leaves.forEach((leaf, i) => {
 if (!isCoarse) {
   let mx = 0, my = 0, lx = 0, ly = 0;
   window.addEventListener('mousemove', (e) => {
-    mx = (e.clientX - window.innerWidth / 2) * 0.02;
-    my = (e.clientY - window.innerHeight / 2) * 0.02;
+    mx = (e.clientX - window.innerWidth / 2) * 0.015;
+    my = (e.clientY - window.innerHeight / 2) * 0.015;
   });
-  function tickLeaves() {
+  function tickBranches() {
     lx += (mx - lx) * 0.06;
     ly += (my - ly) * 0.06;
-    leaves.forEach((leaf) => {
-      const rot = parseFloat(leaf.dataset.baseRot || '0');
-      leaf.style.transform = `translate(${lx}px, ${ly}px) scale(1) rotate(${rot}deg)`;
+    branches.forEach((branch) => {
+      const rot = parseFloat(branch.dataset.baseRot || '0');
+      branch.style.transform = `translate(${lx}px, ${ly}px) scale(1) rotate(${rot}deg)`;
     });
-    requestAnimationFrame(tickLeaves);
+    requestAnimationFrame(tickBranches);
   }
-  setTimeout(tickLeaves, 1400);
+  setTimeout(tickBranches, 1400);
 }
 
 // ============ INTERSECTION REVEAL ============
@@ -1821,7 +2190,7 @@ const weddingDate = new Date('2027-06-19T12:30:00').getTime();
 function updateCountdown() {
   const now = Date.now();
   const diff = weddingDate - now;
-  
+
   if (diff <= 0) {
     document.getElementById('cd-days').textContent = '000';
     document.getElementById('cd-hours').textContent = '00';
@@ -1829,12 +2198,12 @@ function updateCountdown() {
     document.getElementById('cd-secs').textContent = '00';
     return;
   }
-  
+
   const days = Math.floor(diff / (1000 * 60 * 60 * 24));
   const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
   const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
   const secs = Math.floor((diff % (1000 * 60)) / 1000);
-  
+
   document.getElementById('cd-days').textContent = String(days).padStart(3, '0');
   document.getElementById('cd-hours').textContent = String(hours).padStart(2, '0');
   document.getElementById('cd-mins').textContent = String(mins).padStart(2, '0');
@@ -1853,10 +2222,10 @@ document.querySelectorAll('.faq__item').forEach(item => {
   });
 });
 
-// ============ ZIGZAG STAGGER VIA GSAP (enhanced) ============
+// ============ ZIGZAG STAGGER VIA GSAP ============
 if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
-  
+
   document.querySelectorAll('.zigzag__item').forEach((item) => {
     const textCol = item.querySelector('[data-text]');
     if (!textCol) return;
@@ -1880,9 +2249,7 @@ if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
 
 // ============ REDUCED MOTION ============
 if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-  // Stop leaves animation
-  leaves.forEach(leaf => leaf.classList.add('in'));
-  // Stop lenis
+  branches.forEach(branch => branch.classList.add('in'));
   lenis.destroy();
 }
 </script>
