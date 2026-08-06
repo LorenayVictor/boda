@@ -14,6 +14,19 @@
 <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16.webp">
 <link rel="apple-touch-icon" href="images/apple-touch-icon.webp">
 
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://victorbonasa.github.io/boda/">
+<meta property="og:title" content="Lorena &amp; Víctor · 19 de junio de 2027 · Zaragoza">
+<meta property="og:description" content="Lorena y Víctor se casan el 19 de junio de 2027 en la Iglesia de Santa Isabel de Portugal (Zaragoza).">
+<meta property="og:image" content="https://victorbonasa.github.io/boda/images/pedida.jpg">
+<meta property="og:image:width" content="935">
+<meta property="og:image:height" content="719">
+<meta property="og:locale" content="es_ES">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Lorena &amp; Víctor · 19 de junio de 2027 · Zaragoza">
+<meta name="twitter:description" content="Lorena y Víctor se casan el 19 de junio de 2027 en la Iglesia de Santa Isabel de Portugal (Zaragoza).">
+<meta name="twitter:image" content="https://victorbonasa.github.io/boda/images/pedida.jpg">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel='stylesheet' href='https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500&family=Great+Vibes:wght@400&display=swap'>
@@ -184,11 +197,60 @@ section { position: relative; }
   transition: opacity 300ms, color 300ms;
 }
 .nav__links a:hover { opacity: 1; color: var(--gold); }
+.nav__toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 40px;
+  height: 40px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+.nav__toggle span {
+  display: block;
+  width: 22px;
+  height: 1.5px;
+  background: var(--brown-dark);
+  transition: transform 300ms var(--ease-quiet), opacity 300ms var(--ease-quiet);
+}
+.nav__toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.nav__toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+.nav__toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
 @media (max-width: 820px) {
   .nav { padding: 1rem 1.25rem; }
   .nav.scrolled { padding: 0.75rem 1.25rem; }
   .nav__brand { font-size: 1.25rem; }
-  .nav__links { display: none; }
+  .nav__toggle { display: flex; }
+  .nav__links {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    gap: 0;
+    background: rgba(244, 236, 216, 0.98);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(166, 124, 0, 0.15);
+  }
+  .nav__links.is-open {
+    display: flex;
+    animation: navReveal 280ms var(--ease-quiet);
+  }
+  .nav__links a {
+    padding: 1rem 1.25rem;
+    text-align: center;
+    border-top: 1px solid rgba(166, 124, 0, 0.1);
+  }
+}
+@keyframes navReveal {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 /* ============ HERO ============ */
@@ -1521,9 +1583,14 @@ a.contact__card::after {
 <!-- NAV -->
 <nav class="nav" id="nav">
   <div class="nav__brand-wrapper">
-    <img src="images/logo.png" alt="Lorena & Víctor Logo" class="nav__logo">
+    <img src="images/logo.png" alt="Lorena &amp; Víctor" class="nav__logo">
   </div>
-  <div class="nav__links">
+  <button class="nav__toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="navLinks" aria-label="Abrir menú">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+  <div class="nav__links" id="navLinks">
     <a href="#story">Historia</a>
     <a href="#ceremony">Ceremonia</a>
     <a href="#reception">Celebración</a>
@@ -1566,7 +1633,7 @@ a.contact__card::after {
     <p class="story__subtitle">Ha llegado el momento de empezar una nueva etapa.</p>
     <p class="story__message">¡Nos casamos!</p>
     <div class="story__image">
-      <img src="images/pedida.jpg" alt="Lorena y Víctor">
+      <img src="images/pedida.jpg" alt="Lorena y Víctor" loading="lazy">
     </div>
   </div>
 </section>
@@ -1575,7 +1642,7 @@ a.contact__card::after {
 <section class="venue venue--ceremony" id="ceremony" data-reveal>
   <div class="venue__grid">
     <div class="venue__img">
-      <img src="images/IglesiadeSanCayetano2.webp" alt="Iglesia de San Cayetano">
+      <img src="images/IglesiadeSanCayetano2.webp" alt="Iglesia de San Cayetano" loading="lazy">
     </div>
     <div class="venue__text">
       <span class="eyebrow">La ceremonia</span>
@@ -1611,7 +1678,7 @@ a.contact__card::after {
     
     <!-- CONTENEDOR DE LA IMAGEN SIN MARCO -->
     <div class="venue__img" style="flex: 1; background: transparent; border: none; box-shadow: none; padding: 0; margin: 0; border-radius: 0; overflow: hidden;">
-      <img src="images/habitatsella.webp" alt="Restaurante El Sella" style="width: 100%; height: 100%; display: block; object-fit: cover; border-radius: 0;">
+      <img src="images/habitatsella.webp" alt="Restaurante El Sella" loading="lazy" style="width: 100%; height: 100%; display: block; object-fit: cover; border-radius: 0;">
     </div>
     
     <!-- CONTENEDOR DEL TEXTO -->
@@ -1958,6 +2025,24 @@ a.contact__card::after {
 </footer>
 
 <script>
+// ============ MENÚ MÓVIL ============
+const navToggle = document.getElementById('navToggle');
+const navLinksEl = document.getElementById('navLinks');
+if (navToggle && navLinksEl) {
+  navToggle.addEventListener('click', () => {
+    const isOpen = navLinksEl.classList.toggle('is-open');
+    navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    navToggle.setAttribute('aria-label', isOpen ? 'Cerrar menú' : 'Abrir menú');
+  });
+  navLinksEl.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      navLinksEl.classList.remove('is-open');
+      navToggle.setAttribute('aria-expanded', 'false');
+      navToggle.setAttribute('aria-label', 'Abrir menú');
+    });
+  });
+}
+
 // ============ LENIS SMOOTH SCROLL ============
 const lenis = new Lenis({
   duration: 1.2,
@@ -1987,9 +2072,6 @@ document.querySelectorAll('a[href^="#"]').forEach(link => {
     }
   });
 });
-
-// ============ HERO SCATTERED OLIVE BRANCHES ============
-const isCoarse = window.matchMedia('(pointer: coarse)').matches;
 
 // ============ INTERSECTION REVEAL ============
 const revealEls = document.querySelectorAll('[data-reveal]');
@@ -2072,7 +2154,6 @@ if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
 
 // ============ REDUCED MOTION ============
 if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-  branches.forEach(branch => branch.classList.add('in'));
   lenis.destroy();
 }
 </script>
