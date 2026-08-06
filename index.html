@@ -29,7 +29,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel='stylesheet' href='https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500&family=Great+Vibes:wght@400&display=swap'>
+<link rel='stylesheet' href='https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,700;1,400;1,500&family=Lora:ital,wght@0,400;1,400&family=Inter:wght@400;500&family=Great+Vibes:wght@400&display=swap'>
 
 <script src='https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js'></script>
 <script src='https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js'></script>
@@ -78,9 +78,13 @@ body::before {
   pointer-events: none;
   z-index: 9999;
   mix-blend-mode: multiply;
+  will-change: transform;
+}
+@media (max-width: 768px) {
+  body::before { display: none; }
 }
 
-img { max-width: 100%; display: block; }
+img { max-width: 100%; display: block; height: auto; }
 a { color: inherit; text-decoration: none; }
 
 h1, h2, h3, h4 {
@@ -480,9 +484,15 @@ section { position: relative; }
   .hero__pre { margin-bottom: 1.5rem; font-size: 10px; letter-spacing: 0.35em; }
   .hero__pre::before, .hero__pre::after { width: 1.5rem; margin: 0 0.5rem; }
   .hero__sub { font-size: 1.1rem; margin-top: 1.5rem; }
-  .hero__meta { flex-direction: column; gap: 0.5rem; font-size: 12px; }
+  .hero__meta { flex-direction: column; gap: 0.75rem; font-size: 12px; }
   .hero__meta .dot { display: none; }
   .hero__seal { width: 80px; height: 80px; bottom: 5rem; right: 1.5rem; }
+}
+@media (max-width: 600px) {
+  .hero__seal { width: 60px; height: 60px; bottom: 6rem; right: 1rem; }
+}
+@media (max-width: 380px) {
+  .hero__seal { display: none; }
 }
 
 /* ============ WELCOME ============ */
@@ -593,6 +603,11 @@ section { position: relative; }
   display: block;
 }
 
+@media (max-width: 768px) {
+  .countdown { padding: 4.5rem 1.5rem; }
+  .countdown__grid { gap: 0.75rem; }
+  .countdown__unit { padding: 1rem 0.5rem; }
+}
 @media (max-width: 600px) {
   .countdown { padding: 4rem 1rem; }
   .countdown__label { font-size: 10px; letter-spacing: 0.3em; margin-bottom: 1.5rem; }
@@ -642,7 +657,7 @@ section { position: relative; }
 }
 .story__message {
   font-family: 'Great Vibes', cursive;
-  font-size: 3.5rem;
+  font-size: clamp(2rem, 8vw, 3.5rem);
   font-style: normal;
   color: var(--brown-dark);
   margin-bottom: 3rem;
@@ -733,6 +748,9 @@ section { position: relative; }
   background: linear-gradient(135deg, transparent 60%, rgba(61, 40, 23, 0.15));
   pointer-events: none;
 }
+
+/* Prevent grid overflow from long content */
+.zigzag__item > *, .venue__grid > *, .playlist__grid > *, .practical__grid > * { min-width: 0; }
 
 @media (max-width: 900px) {
   .story, .welcome, .itinerary, .rsvp, .practical, .faq, .contact, .playlist, .venue { 
@@ -866,6 +884,21 @@ section { position: relative; }
   .venue__detail span:first-child { min-width: 65px; }
 }
 
+/* Reception flush variant */
+.venue--reception { overflow: hidden; }
+.venue__grid--flush { gap: 0; align-items: stretch; }
+.venue__grid--flush .venue__text { padding: 2.5rem; }
+.venue__img--flush {
+  border-radius: 0;
+  box-shadow: none;
+  aspect-ratio: auto;
+}
+.venue__img--flush img { border-radius: 0; }
+@media (max-width: 900px) {
+  .venue__grid--flush { gap: 0; }
+  .venue__grid--flush .venue__text { padding: 2.5rem 1.5rem; }
+}
+
 /* ============ ITINERARY ============ */
 .itinerary {
   padding: 10rem 2rem;
@@ -956,6 +989,12 @@ section { position: relative; }
   font-family: 'Lora', serif;
 }
 
+@media (max-width: 768px) {
+  .timeline::before { left: 95px; }
+  .tl__item { grid-template-columns: 95px 1fr; gap: 1.5rem; padding: 1.5rem 0; }
+  .tl__time { font-size: 1.3rem; }
+  .tl__time::after { transform: translate(2rem, 0); margin-left: 1.5rem; }
+}
 @media (max-width: 600px) {
   .timeline { padding: 0 0.5rem; }
   .timeline::before { left: 75px; }
@@ -1321,6 +1360,11 @@ section { position: relative; }
   .pcard { border-bottom: 1px solid rgba(166, 124, 0, 0.15); padding: 2.5rem 2rem; }
   .pcard:last-child { border-bottom: none; }
 }
+@media (max-width: 480px) {
+  .pcard { padding: 2rem 1.25rem; }
+  .pcard__title { font-size: 1.5rem; }
+  .pcard__desc { font-size: 0.9rem; }
+}
 
 /* ============ FAQ ============ */
 .faq {
@@ -1406,7 +1450,8 @@ section { position: relative; }
 .faq__item.open .faq__a { max-height: 300px; }
 
 @media (max-width: 600px) {
-  .faq__q { font-size: 1.1rem; gap: 1rem; }
+  .faq__q { font-size: 1.1rem; gap: 1rem; padding: 1.25rem 0; }
+  .faq__q .toggle { width: 44px; height: 44px; }
   .faq__a-inner { font-size: 0.9rem; }
 }
 
@@ -1510,8 +1555,9 @@ a.contact__card::after {
 }
 
 @media (max-width: 800px) {
-  .contact__grid { grid-template-columns: 1fr; gap: 1.5rem; }
+  .contact__grid { grid-template-columns: 1fr; gap: 2rem; }
   .contact__sub { margin-bottom: 3rem; }
+  a.contact__card::before, a.contact__card::after { display: none; }
 }
 
 /* ============ FOOTER ============ */
@@ -1605,7 +1651,7 @@ a.contact__card::after {
   <div class="hero__frame"></div>
 
   <div class="hero__facade">
-    <img src="images/IglesiaSanCayetano.png" alt="Iglesia San Cayetano">
+    <img src="images/IglesiaSanCayetano.png" alt="Iglesia San Cayetano" width="700" height="900">
   </div>
 
   <div class="hero__inner">
@@ -1633,7 +1679,7 @@ a.contact__card::after {
     <p class="story__subtitle">Ha llegado el momento de empezar una nueva etapa.</p>
     <p class="story__message">¡Nos casamos!</p>
     <div class="story__image">
-      <img src="images/pedida.jpg" alt="Lorena y Víctor" loading="lazy">
+      <img src="images/pedida.jpg" alt="Lorena y Víctor" loading="lazy" width="935" height="719">
     </div>
   </div>
 </section>
@@ -1642,7 +1688,7 @@ a.contact__card::after {
 <section class="venue venue--ceremony" id="ceremony" data-reveal>
   <div class="venue__grid">
     <div class="venue__img">
-      <img src="images/IglesiadeSanCayetano2.webp" alt="Iglesia de San Cayetano" loading="lazy">
+      <img src="images/IglesiadeSanCayetano2.webp" alt="Iglesia de San Cayetano" loading="lazy" width="600" height="800">
     </div>
     <div class="venue__text">
       <span class="eyebrow">La ceremonia</span>
@@ -1673,16 +1719,16 @@ a.contact__card::after {
 </section>
 
 <!-- RECEPTION -->
-<section class="venue venue--reception" id="reception" style="position: relative; overflow: hidden;" data-reveal>
-  <div class="venue__grid" style="display: flex; flex-direction: row; align-items: stretch; gap: 0; padding: 0; margin: 0; width: 100%;">
+<section class="venue venue--reception" id="reception" data-reveal>
+  <div class="venue__grid venue__grid--flush">
     
     <!-- CONTENEDOR DE LA IMAGEN SIN MARCO -->
-    <div class="venue__img" style="flex: 1; background: transparent; border: none; box-shadow: none; padding: 0; margin: 0; border-radius: 0; overflow: hidden;">
-      <img src="images/habitatsella.webp" alt="Restaurante El Sella" loading="lazy" style="width: 100%; height: 100%; display: block; object-fit: cover; border-radius: 0;">
+    <div class="venue__img venue__img--flush">
+      <img src="images/habitatsella.webp" alt="Restaurante El Sella" loading="lazy" width="800" height="600">
     </div>
     
     <!-- CONTENEDOR DEL TEXTO -->
-    <div class="venue__text" style="flex: 1; padding: 40px; margin: 0;">
+    <div class="venue__text">
       <span class="eyebrow">La celebración</span>
       <h2 class="venue__title">Restaurante <em>El Sella</em></h2>
       <p class="venue__name">El Sella · Zaragoza</p>
