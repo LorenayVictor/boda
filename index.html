@@ -2216,6 +2216,41 @@ if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
 if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
   lenis.destroy();
 }
+  // ============ HERO OPEN ============
+const hero = document.getElementById("hero");
+const openButton = document.getElementById("openInvitation");
+
+if (hero && openButton) {
+
+  // Bloquea el scroll al cargar
+  lenis.stop();
+
+  let opened = false;
+
+  openButton.addEventListener("click", function(e){
+
+    e.preventDefault();
+
+    if(opened) return;
+
+    opened = true;
+
+    hero.classList.add("hero--opening");
+
+    setTimeout(() => {
+
+      lenis.start();
+
+      lenis.scrollTo("#story",{
+        duration:1.4,
+        offset:-60
+      });
+
+    },800);
+
+  });
+
+}
 </script>
 
 </body>
