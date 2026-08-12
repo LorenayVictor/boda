@@ -1673,6 +1673,20 @@ a.contact__card::after {
   .playlist__disc, .playlist__disc-label { animation: none; }
   .hero__seal .seal-rotate { animation: none; }
 }
+  /* Transición de la portada a nuestra historia */
+
+#story {
+  opacity: 0;
+  transform: translateY(35px);
+  transition:
+    opacity 1.1s ease,
+    transform 1.1s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+#story.story--visible {
+  opacity: 1;
+  transform: translateY(0);
+}
 </style>
 </head>
 <body>
@@ -2270,10 +2284,11 @@ if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
   // ============ HERO OPEN ============
 const hero = document.getElementById("hero");
 const openButton = document.getElementById("openInvitation");
+const story = document.getElementById("story");
 
 if (hero && openButton) {
 
-  // Bloquea el scroll nativo y lenis al cargar
+  // Bloquea el scroll al entrar en la invitación
   document.body.classList.add("lock-scroll");
   lenis.stop();
 
@@ -2287,6 +2302,7 @@ if (hero && openButton) {
 
     opened = true;
 
+    // La portada comienza a desaparecer suavemente
     hero.classList.add("hero--opening");
 
     setTimeout(() => {
@@ -2294,12 +2310,18 @@ if (hero && openButton) {
       document.body.classList.remove("lock-scroll");
       lenis.start();
 
-      lenis.scrollTo("#story",{
-        duration:1.4,
-        offset:-60
+      // Hace aparecer suavemente la siguiente sección
+      if (story) {
+        story.classList.add("--visible");
+      }
+
+      // Desplazamiento suave hacia la historia
+      lenis.scrollTo("#story", {
+        duration: 1.4,
+        offset: -60
       });
 
-    },800);
+    }, 800);
 
   });
 
