@@ -1673,20 +1673,6 @@ a.contact__card::after {
   .playlist__disc, .playlist__disc-label { animation: none; }
   .hero__seal .seal-rotate { animation: none; }
 }
-  /* Transición de la portada a nuestra historia */
-
-#story {
-  opacity: 0;
-  transform: translateY(35px);
-  transition:
-    opacity 1.1s ease,
-    transform 1.1s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-#story.story--visible {
-  opacity: 1;
-  transform: translateY(0);
-}
 </style>
 </head>
 <body>
@@ -2284,7 +2270,6 @@ if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
   // ============ HERO OPEN ============
 const hero = document.getElementById("hero");
 const openButton = document.getElementById("openInvitation");
-const story = document.getElementById("story");
 
 if (hero && openButton) {
 
