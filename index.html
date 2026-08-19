@@ -2077,6 +2077,151 @@ a.contact__card::after {
   .envelope__caption > span {
     font-size: 1rem;
   }
+  /* =========================================================
+   AJUSTE FINAL — COLOR + ESPACIOS + MÓVIL
+   ========================================================= */
+
+/* --- PALETA --- */
+
+:root {
+  --cream: #F8F7F3;
+  --cream-dark: #F1F0EB;
+  --gold: #B59A62;
+  --blue: #183B56;
+  --blue-light: #315A73;
+  --text: #26343C;
+}
+
+/* --- FONDOS --- */
+
+body {
+  background: var(--cream);
+  color: var(--text);
+}
+
+.welcome,
+.story,
+.venue,
+.itinerary {
+  background: var(--cream);
+}
+
+/* Evitamos bloques amarillentos demasiado visibles */
+.section,
+.card,
+.info-card,
+.details-card {
+  background-color: transparent;
+}
+
+/* --- MENOS AIRE ENTRE SECCIONES --- */
+
+.welcome {
+  padding-top: 6rem;
+  padding-bottom: 5rem;
+}
+
+.story {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+
+.venue {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+
+.itinerary {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+
+/* --- TÍTULOS --- */
+
+h1,
+h2,
+h3 {
+  color: var(--blue);
+}
+
+/* Dorado solo como detalle, no como color dominante */
+.section-title::after,
+.title-decoration {
+  background: var(--gold);
+}
+
+/* =========================================================
+   MÓVIL
+   ========================================================= */
+
+@media (max-width: 768px) {
+
+  /* Mucho menos espacio vertical */
+  .welcome,
+  .story,
+  .venue,
+  .itinerary {
+    padding-top: 3.5rem;
+    padding-bottom: 3.5rem;
+  }
+
+  /* El contenido no debe quedar flotando */
+  .container,
+  .section-inner {
+    width: calc(100% - 32px);
+    max-width: none;
+  }
+
+  /* IMÁGENES */
+  .zigzag {
+    gap: 1.5rem;
+  }
+
+  .zigzag-item {
+    margin-bottom: 2rem;
+  }
+
+  .zigzag-item:last-child {
+    margin-bottom: 0;
+  }
+
+  .zigzag-image {
+    margin-bottom: 1.25rem;
+  }
+
+  /* Evita huecos gigantes alrededor de imágenes */
+  .zigzag img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  /* Texto más compacto */
+  .zigzag-content {
+    padding: 0;
+  }
+
+  .zigzag-content h2,
+  .zigzag-content h3 {
+    margin-top: 0;
+    margin-bottom: 0.75rem;
+  }
+
+  .zigzag-content p {
+    margin-bottom: 0.75rem;
+  }
+
+  /* Reducimos márgenes genéricos */
+  section {
+    margin-bottom: 0;
+  }
+
+  /* Evita espacios provocados por elementos vacíos */
+  .spacer,
+  .section-spacer {
+    display: none;
+  }
+}
 </style>
 </head>
 <body>
