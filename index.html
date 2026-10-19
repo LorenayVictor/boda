@@ -1515,7 +1515,7 @@ body.lock-scroll{
 /* ============ PRACTICAL INFO (TRIPTYCH) ============ */
 .practical {
   padding: 3rem 2rem 3.25rem;
-  background: var(--cream);
+  background: var(--cream-dark);
 }
 .practical__head { text-align: center; margin-bottom: 1.5rem; }
 .practical__head h2 {
@@ -1639,11 +1639,12 @@ body.lock-scroll{
   text-align: right;
 }
 .pcard__hint {
-  font-size: 0.88rem;
+  font-size: 1.45rem;
+  line-height: 1.25;
   color: var(--gold);
   font-style: italic;
   font-family: 'Cormorant Garamond', 'Cormorant', Georgia, 'Times New Roman', serif;
-  margin-top: 0.6rem;
+  margin-top: 0.9rem;
   display: block;
   text-align: center;
 }
@@ -1658,6 +1659,7 @@ body.lock-scroll{
   .pcard { padding: 0.5rem 0.5rem; }
   .pcard__title { font-size: 1.5rem; }
   .pcard__desc { font-size: 0.9rem; }
+  .pcard__hint { font-size: 1.25rem; }
 }
 
 /* ============ FAQ ============ */
@@ -1859,9 +1861,8 @@ a.contact__card:hover::after { transform: translateY(-50%) rotate(90deg) scale(1
 /* ============ FOOTER ============ */
 .footer {
   padding: 6rem 2rem 4rem;
-  background: var(--cream-dark);
+  background: var(--cream);
   text-align: center;
-  border-top: 1px solid rgba(42, 92, 153, 0.2);
   position: relative;
   overflow: hidden;
 }
@@ -1947,8 +1948,8 @@ a.contact__card:hover::after { transform: translateY(-50%) rotate(90deg) scale(1
     <a href="#ceremony">Ceremonia</a>
     <a href="#reception">Celebración</a>
     <a href="#itinerary">Itinerario</a>
-    <a href="#rsvp">Confirmar</a>
     <a href="#contact">Contacto</a>
+    <a href="#rsvp">Confirmar</a>
   </div>
 </nav>
 
@@ -2139,57 +2140,6 @@ a.contact__card:hover::after { transform: translateY(-50%) rotate(90deg) scale(1
   </div>
 </section>
 
-<!-- COUNTDOWN -->
-<section class="countdown" data-reveal>
-  <div class="countdown__inner">
-    <div class="countdown__label">Faltan para el gran día</div>
-    <div class="countdown__grid">
-      <div class="countdown__unit">
-        <span class="countdown__num" id="cd-days">000</span>
-        <span class="countdown__lbl">Días</span>
-      </div>
-      <div class="countdown__unit">
-        <span class="countdown__num" id="cd-hours">00</span>
-        <span class="countdown__lbl">Horas</span>
-      </div>
-      <div class="countdown__unit">
-        <span class="countdown__num" id="cd-mins">00</span>
-        <span class="countdown__lbl">Minutos</span>
-      </div>
-      <div class="countdown__unit">
-        <span class="countdown__num" id="cd-secs">00</span>
-        <span class="countdown__lbl">Segundos</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- RSVP -->
-<section class="rsvp" id="rsvp" data-reveal>
-  <div class="rsvp__envelope">
-    <div class="rsvp__seal">
-      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="50" cy="50" r="42" class="seal-bg"/>
-        <circle cx="50" cy="50" r="38" class="seal-border"/>
-        <text x="50" y="58" text-anchor="middle">L<tspan class="amp">&amp;</tspan>V</text>
-      </svg>
-    </div>
-
-    <div class="rsvp__inner">
-      <span class="eyebrow">Confirmación de asistencia</span>
-      <h2 class="rsvp__title">¿Nos <em>acompañáis</em>?</h2>
-      <p class="rsvp__text">Para nosotros es imprescindible saber si podréis estar presentes. Cada invitado cuenta, y nos gustaría prepararlo todo con cariño.</p>
-      <p class="rsvp__text">Por favor, rellenad el formulario lo antes posible.</p>
-      <span class="rsvp__deadline">Fecha límite · 19 de marzo de 2027</span>
-      <a class="rsvp__btn" href="https://forms.gle/EZfzHPczyts4CGcD6" target="_blank" rel="noopener">
-        Confirmar asistencia
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-      </a>
-      <p class="rsvp__hint">Si tenéis cualquier duda con el formulario, escribidnos directamente.</p>
-    </div>
-  </div>
-</section>
-
 <!-- PLAYLIST -->
 <section class="playlist" data-reveal>
   <div class="playlist__grid">
@@ -2229,33 +2179,6 @@ a.contact__card:hover::after { transform: translateY(-50%) rotate(90deg) scale(1
         </span>
         <span class="guestphotos__link-url">Pincha aquí para abrir el álbum</span>
       </a>
-    </div>
-  </div>
-</section>
-
-<!-- PRACTICAL INFO (TRIPTYCH) -->
-<section class="practical" data-reveal>
-  <div class="container">
-    <div class="practical__head">
-      <span class="eyebrow">Información práctica</span>
-      <h2>Antes de <em>venir</em></h2>
-    </div>
-
-      <div class="pcard">
-        <div class="pcard__photo"><img src="images/pedida.jpg" alt="Lorena y Víctor" loading="lazy"></div>
-        <h3 class="pcard__title">¡GRACIAS!</h3>
-        <h3 class="pcard__title">Vuestra compañía es nuestro mejor regalo.</h3>
-        
-  <p class="pcard__desc">
-    Si además queréis tener un detalle con nosotros, podéis acompañarnos en el comienzo de esta nueva etapa.
-  </p>
-        <ul class="pcard__list">
-          <li><span>Titular</span><span>Lorena <span class="amp">&amp;</span> Víctor</span></li>
-          <li><span>IBAN</span><span>ES00 0000 0000 0000</span></li>
-          <li><span>Concepto</span><span>"Boda L<span class="amp">&amp;</span>V"</span></li>
-        </ul>
-        <span class="pcard__hint">Gracias de corazón por vuestro cariño.</span>
-      </div>
     </div>
   </div>
 </section>
@@ -2335,6 +2258,83 @@ a.contact__card:hover::after { transform: translateY(-50%) rotate(90deg) scale(1
         <h3 class="contact__name">María Jesús</h3>
         <p class="contact__phone">+34 619 010 907 </p>
       </a>
+    </div>
+  </div>
+</section>
+
+<!-- PRACTICAL INFO (TRIPTYCH) -->
+<section class="practical" data-reveal>
+  <div class="container">
+    <div class="practical__head">
+      <span class="eyebrow">Regalo de boda</span>
+      <h2>Lo que os dicte el <em>corazón</em></h2>
+    </div>
+
+      <div class="pcard">
+        <div class="pcard__photo"><img src="images/pedida.jpg" alt="Lorena y Víctor" loading="lazy"></div>
+        <h3 class="pcard__title">Vuestra compañía es nuestro mejor regalo.</h3>
+        
+  <p class="pcard__desc">
+    Si además queréis tener un detalle con nosotros, podéis acompañarnos en el comienzo de esta nueva etapa.
+  </p>
+        <ul class="pcard__list">
+          <li><span>Titular</span><span>Lorena <span class="amp">&amp;</span> Víctor</span></li>
+          <li><span>IBAN</span><span>ES00 0000 0000 0000</span></li>
+          <li><span>Concepto</span><span>"Boda L<span class="amp">&amp;</span>V"</span></li>
+        </ul>
+        <span class="pcard__hint">Gracias de corazón por vuestro cariño.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RSVP -->
+<section class="rsvp" id="rsvp" data-reveal>
+  <div class="rsvp__envelope">
+    <div class="rsvp__seal">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="50" cy="50" r="42" class="seal-bg"/>
+        <circle cx="50" cy="50" r="38" class="seal-border"/>
+        <text x="50" y="58" text-anchor="middle">L<tspan class="amp">&amp;</tspan>V</text>
+      </svg>
+    </div>
+
+    <div class="rsvp__inner">
+      <span class="eyebrow">Confirmación de asistencia</span>
+      <h2 class="rsvp__title">¿Nos <em>acompañáis</em>?</h2>
+      <p class="rsvp__text">Para nosotros es imprescindible saber si podréis estar presentes. Cada invitado cuenta, y nos gustaría prepararlo todo con cariño.</p>
+      <p class="rsvp__text">Por favor, rellenad el formulario lo antes posible.</p>
+      <span class="rsvp__deadline">Fecha límite · 19 de marzo de 2027</span>
+      <a class="rsvp__btn" href="https://forms.gle/EZfzHPczyts4CGcD6" target="_blank" rel="noopener">
+        Confirmar asistencia
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      <p class="rsvp__hint">Si tenéis cualquier duda con el formulario, escribidnos directamente.</p>
+    </div>
+  </div>
+</section>
+
+<!-- COUNTDOWN -->
+<section class="countdown" data-reveal>
+  <div class="countdown__inner">
+    <div class="countdown__label">Faltan para el gran día</div>
+    <div class="countdown__grid">
+      <div class="countdown__unit">
+        <span class="countdown__num" id="cd-days">000</span>
+        <span class="countdown__lbl">Días</span>
+      </div>
+      <div class="countdown__unit">
+        <span class="countdown__num" id="cd-hours">00</span>
+        <span class="countdown__lbl">Horas</span>
+      </div>
+      <div class="countdown__unit">
+        <span class="countdown__num" id="cd-mins">00</span>
+        <span class="countdown__lbl">Minutos</span>
+      </div>
+      <div class="countdown__unit">
+        <span class="countdown__num" id="cd-secs">00</span>
+        <span class="countdown__lbl">Segundos</span>
+      </div>
     </div>
   </div>
 </section>
