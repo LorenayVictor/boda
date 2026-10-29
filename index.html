@@ -1583,20 +1583,43 @@ body.lock-scroll{
   background: var(--gold);
 }
 .pcard__photo {
-  width: 84px;
-  height: 84px;
-  border-radius: 50%;
-  margin: 0 auto 0.6rem;
-  padding: 5px;
+  position: relative;
+  width: min(240px, 72%);
+  aspect-ratio: 4 / 5;
+  margin: 0.4rem auto 1.6rem;
+  padding: 8px;
+  background: var(--cream-light);
   border: 1.5px solid var(--gold);
-  overflow: hidden;
-  transition: transform 500ms var(--ease-bounce);
+  border-radius: 999px 999px 16px 16px;
+  box-shadow: 0 16px 34px rgba(27, 63, 102, 0.2);
+  transition: transform 600ms var(--ease-quiet);
 }
-.pcard:hover .pcard__photo { transform: scale(1.06) rotate(-4deg); }
+.pcard__photo::before {
+  content: '';
+  position: absolute; inset: -11px;
+  border: 1px dashed rgba(42, 92, 153, 0.4);
+  border-radius: 999px 999px 24px 24px;
+  pointer-events: none;
+}
+.pcard__photo::after {
+  content: '♥';
+  position: absolute; left: 50%; bottom: -17px;
+  transform: translateX(-50%);
+  width: 34px; height: 34px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 50%;
+  background: var(--cream-light);
+  border: 1.5px solid var(--gold);
+  color: var(--sky);
+  font-size: 15px;
+  line-height: 1;
+}
+.pcard:hover .pcard__photo { transform: translateY(-3px); }
 .pcard__photo img {
   width: 100%; height: 100%;
-  border-radius: 50%;
+  border-radius: 999px 999px 9px 9px;
   object-fit: cover;
+  object-position: 50% 35%;
   display: block;
 }
 
@@ -2535,9 +2558,19 @@ const openButton = document.getElementById("openInvitation");
 
 if (hero && openButton) {
 
-  // Bloquea el scroll al entrar en la invitación
-  document.body.classList.add("lock-scroll");
-  lenis.stop();
+  // Si ya abriste la invitación en esta sesión (o recargas a mitad de página), no se bloquea el scroll
+  var openedBefore = false;
+  try { openedBefore = sessionStorage.getItem("invitacionAbierta") === "1"; } catch (err) {}
+  var midPage = (window.scrollY > 100) || (location.hash && location.hash.length > 1);
+
+  if (openedBefore || midPage) {
+    hero.classList.add("hero--opening");
+    if (story) story.classList.add("--visible");
+  } else {
+    // Bloquea el scroll solo mientras se ve la portada
+    document.body.classList.add("lock-scroll");
+    try { lenis.stop(); } catch (err) {}
+  }
 
   let opened = false;
 
@@ -2548,6 +2581,7 @@ if (hero && openButton) {
     if(opened) return;
 
     opened = true;
+    try { sessionStorage.setItem("invitacionAbierta", "1"); } catch (err) {}
 
     // La portada comienza a desaparecer suavemente
     hero.classList.add("hero--opening");
@@ -2555,7 +2589,7 @@ if (hero && openButton) {
     setTimeout(() => {
 
       document.body.classList.remove("lock-scroll");
-      lenis.start();
+      try { lenis.start(); } catch (err) {}
 
       // Hace aparecer suavemente la siguiente sección
       if (story) {
@@ -2570,6 +2604,16 @@ if (hero && openButton) {
 
     }, 800);
 
+  });
+
+  // Seguridad: si por cualquier motivo el bloqueo sigue puesto y la página ya no está arriba, se libera
+  window.addEventListener("load", function () {
+    setTimeout(function () {
+      if (document.body.classList.contains("lock-scroll") && window.scrollY > 100) {
+        document.body.classList.remove("lock-scroll");
+        try { lenis.start(); } catch (err) {}
+      }
+    }, 300);
   });
 
 }
