@@ -1584,43 +1584,40 @@ body.lock-scroll{
 }
 .pcard__photo {
   position: relative;
-  width: min(240px, 72%);
-  aspect-ratio: 4 / 5;
-  margin: 0.4rem auto 1.6rem;
-  padding: 8px;
+  width: min(270px, 76%);
+  margin: 1.1rem auto 1.9rem;
   background: var(--cream-light);
-  border: 1.5px solid var(--gold);
-  border-radius: 999px 999px 16px 16px;
-  box-shadow: 0 16px 34px rgba(27, 63, 102, 0.2);
-  transition: transform 600ms var(--ease-quiet);
+  padding: 13px 13px 50px;
+  box-shadow: 0 16px 34px rgba(27, 63, 102, 0.22), 0 2px 6px rgba(27, 63, 102, 0.1);
+  transform: rotate(2deg);
+  transition: transform 500ms var(--ease-bounce);
 }
+.pcard:hover .pcard__photo, .pcard__photo:hover { transform: rotate(0deg) scale(1.03) translateY(-4px); }
 .pcard__photo::before {
   content: '';
-  position: absolute; inset: -11px;
-  border: 1px dashed rgba(42, 92, 153, 0.4);
-  border-radius: 999px 999px 24px 24px;
-  pointer-events: none;
+  position: absolute;
+  top: -14px; left: 50%;
+  width: 64px; height: 26px;
+  background: rgba(185, 211, 232, 0.55);
+  border: 1px solid rgba(255,255,255,0.5);
+  transform: translateX(-50%) rotate(-3deg);
+  box-shadow: 0 2px 6px rgba(27, 63, 102, 0.15);
+  z-index: 2;
 }
 .pcard__photo::after {
-  content: '♥';
-  position: absolute; left: 50%; bottom: -17px;
-  transform: translateX(-50%);
-  width: 34px; height: 34px;
-  display: flex; align-items: center; justify-content: center;
-  border-radius: 50%;
-  background: var(--cream-light);
-  border: 1.5px solid var(--gold);
+  content: '♥ ♥ ♥';
+  position: absolute; left: 16px; bottom: 15px;
+  font-size: 13px; letter-spacing: 0.25em;
   color: var(--sky);
-  font-size: 15px;
   line-height: 1;
 }
-.pcard:hover .pcard__photo { transform: translateY(-3px); }
 .pcard__photo img {
-  width: 100%; height: 100%;
-  border-radius: 999px 999px 9px 9px;
+  width: 100%;
+  aspect-ratio: 4 / 5;
   object-fit: cover;
   object-position: 50% 35%;
   display: block;
+  animation: breathe 14s ease-in-out infinite;
 }
 
 .pcard__title {
@@ -1970,8 +1967,8 @@ a.contact__card:hover::after { transform: translateY(-50%) rotate(90deg) scale(1
     <a href="#ceremony">Ceremonia</a>
     <a href="#reception">Celebración</a>
     <a href="#itinerary">Itinerario</a>
-    <a href="#rsvp">Confirmar</a>
     <a href="#contact">Contacto</a>
+    <a href="#rsvp">Confirmar</a>
   </div>
 </nav>
 
@@ -2166,32 +2163,6 @@ a.contact__card:hover::after { transform: translateY(-50%) rotate(90deg) scale(1
 </section>
 
 <!-- COUNTDOWN -->
-<!-- RSVP -->
-<section class="rsvp" id="rsvp" data-reveal>
-  <div class="rsvp__envelope">
-    <div class="rsvp__seal">
-      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="50" cy="50" r="42" class="seal-bg"/>
-        <circle cx="50" cy="50" r="38" class="seal-border"/>
-        <text x="50" y="58" text-anchor="middle">L<tspan class="amp">&amp;</tspan>V</text>
-      </svg>
-    </div>
-
-    <div class="rsvp__inner">
-      <span class="eyebrow">Confirmación de asistencia</span>
-      <h2 class="rsvp__title">¿Nos <em>acompañáis</em>?</h2>
-      <p class="rsvp__text">Para nosotros es imprescindible saber si podréis estar presentes. Cada invitado cuenta, y nos gustaría prepararlo todo con cariño.</p>
-      <p class="rsvp__text">Por favor, rellenad el formulario lo antes posible.</p>
-      <span class="rsvp__deadline">Fecha límite · 19 de marzo de 2027</span>
-      <a class="rsvp__btn" href="https://forms.gle/EZfzHPczyts4CGcD6" target="_blank" rel="noopener">
-        Confirmar asistencia
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-      </a>
-      <p class="rsvp__hint">Si tenéis cualquier duda con el formulario, escribidnos directamente.</p>
-    </div>
-  </div>
-</section>
-
 <!-- PLAYLIST -->
 <section class="playlist" data-reveal>
   <div class="playlist__grid">
@@ -2360,6 +2331,32 @@ a.contact__card:hover::after { transform: translateY(-50%) rotate(90deg) scale(1
         <span class="countdown__num" id="cd-secs">00</span>
         <span class="countdown__lbl">Segundos</span>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- RSVP -->
+<section class="rsvp" id="rsvp" data-reveal>
+  <div class="rsvp__envelope">
+    <div class="rsvp__seal">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="50" cy="50" r="42" class="seal-bg"/>
+        <circle cx="50" cy="50" r="38" class="seal-border"/>
+        <text x="50" y="58" text-anchor="middle">L<tspan class="amp">&amp;</tspan>V</text>
+      </svg>
+    </div>
+
+    <div class="rsvp__inner">
+      <span class="eyebrow">Confirmación de asistencia</span>
+      <h2 class="rsvp__title">¿Nos <em>acompañáis</em>?</h2>
+      <p class="rsvp__text">Para nosotros es imprescindible saber si podréis estar presentes. Cada invitado cuenta, y nos gustaría prepararlo todo con cariño.</p>
+      <p class="rsvp__text">Por favor, rellenad el formulario lo antes posible.</p>
+      <span class="rsvp__deadline">Fecha límite · 19 de marzo de 2027</span>
+      <a class="rsvp__btn" href="https://forms.gle/EZfzHPczyts4CGcD6" target="_blank" rel="noopener">
+        Confirmar asistencia
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      <p class="rsvp__hint">Si tenéis cualquier duda con el formulario, escribidnos directamente.</p>
     </div>
   </div>
 </section>
