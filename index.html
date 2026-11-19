@@ -1024,6 +1024,7 @@ body.lock-scroll{
   .venue__grid--flush { gap: 0; }
   .venue__grid--flush .venue__text { padding: 2.5rem 1.5rem; }
 }
+.venue__actions { display: flex; flex-wrap: wrap; gap: 0.75rem; }
 
 /* ============ ITINERARY ============ */
 .itinerary {
@@ -2046,13 +2047,20 @@ a.contact__card:hover::after { transform: translateY(-50%) rotate(90deg) scale(1
         <span>Notas</span>
         <span>También conocida como Iglesia de Santa Isabel de Portugal.</span>
       </p>
-      <!-- <a class="venue__cta" href="https://maps.google.com/?q=Iglesia+de+Santa+Isabel+de+Portugal+Zaragoza" target="_blank" rel="noopener"> -->
+      <!-- <a class="venue__cta" href="https://maps.google.com/?q=Iglesia+de+Santa+Isabel+de+Portugal+Zaragoza" target="_blank" rel="noopener"> 
       <a class="venue__cta" href="https://www.google.com/maps/search/?api=1&query=Iglesia+de+San+Cayetano+Plaza+del+Justicia+Zaragoza" target="_blank" rel="noopener">
         Cómo llegar
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H8M17 7V16"/></svg>
         <a class="venue__cta" href="calendar/boda.ics" download>Añadir al calendario</a>
-      </a>
-    </div>
+      </a>-->
+      <div class="venue__actions">
+        <a class="venue__cta" href="https://www.google.com/maps/search/?api=1&query=Iglesia+de+San+Cayetano+Plaza+del+Justicia+Zaragoza" target="_blank" rel="noopener">
+          Cómo llegar
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H8M17 7V16"/></svg>
+          </a>
+          <a class="venue__cta" href="calendar/boda.ics" download>Añadir al calendario</a>
+      </div>
+     </div>
   </div>
 </section>
 
