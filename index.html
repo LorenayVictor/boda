@@ -170,7 +170,7 @@ section { position: relative; }
   display: flex;
   justify-content: space-between;
   align-items: center;
-  transition: background 400ms var(--ease-quiet), backdrop-filter 400ms, padding 400ms;
+  transition: background 400ms var(--ease-quiet), backdrop-filter 400ms, padding 400ms, transform 350ms var(--ease-quiet);
 }
 .nav.scrolled {
   background: rgba(251, 253, 255, 0.92);
@@ -1930,6 +1930,43 @@ a.contact__card:hover::after { transform: translateY(-50%) rotate(90deg) scale(1
 /* L & V: letras en zafiro profundo, "&" en zafiro luminoso */
 .footer__monogram, .route__sig { color: var(--gold-dark); }
 .footer__monogram .amp, .route__sig .amp { color: var(--sky); }
+
+/* Menú que se oculta al bajar y reaparece al subir */
+.nav.nav--hidden { transform: translateY(-100%); }
+
+/* Volver arriba (corazón) */
+.to-top {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 2.5rem;
+  color: var(--gold);
+  transition: transform 300ms var(--ease-bounce), color 300ms;
+}
+.to-top svg {
+  width: 64px;
+  height: 64px;
+  filter: drop-shadow(0 6px 10px rgba(42, 92, 153, 0.25));
+  animation: heartbeat 2.8s ease-in-out infinite;
+}
+.to-top__label {
+  font-family: 'Inter', -apple-system, system-ui, 'Helvetica Neue', Arial, sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+.to-top:hover { color: var(--gold-dark); transform: translateY(-4px); }
+.to-top:active { transform: scale(0.95); }
+.to-top:focus-visible { outline: 2px solid currentColor; outline-offset: 6px; border-radius: 8px; }
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  14%      { transform: scale(1.12); }
+  28%      { transform: scale(1); }
+  42%      { transform: scale(1.08); }
+  70%      { transform: scale(1); }
+}
 @media (max-width: 480px) {
   .footer__date { font-size: 10px; letter-spacing: 0.22em; }
 }
@@ -2397,6 +2434,13 @@ a.contact__card:hover::after { transform: translateY(-50%) rotate(90deg) scale(1
     </div>
     <div class="footer__date">19 · 06 · 2027 · Zaragoza</div>
     <div class="footer__credit">Gracias por acompañarnos, estamos deseando compartirlo con vosotros.</div>
+    <a class="to-top" href="#hero" aria-label="Volver arriba">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path fill="currentColor" d="M12 21s-7-4.6-9.3-9C1.2 8.8 2.6 5.5 6 5c2-.3 4 1 6 3 2-2 4-3.3 6-3 3.4.5 4.8 3.8 3.3 7-2.3 4.4-9.3 9-9.3 9z"/>
+        <path fill="none" stroke="var(--cream-light)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="M12 16.2V9.6M9.2 12.2l2.8-2.8 2.8 2.8"/>
+      </svg>
+      <span class="to-top__label">Volver arriba</span>
+    </a>
   </div>
 </footer>
 
@@ -2454,12 +2498,35 @@ function raf(time) {
 }
 requestAnimationFrame(raf);
 
-// ============ NAV SCROLL STATE ============
+// ============ NAV: SCROLLED + OCULTAR AL BAJAR / MOSTRAR AL SUBIR ============
 const nav = document.getElementById('nav');
+let lastY = window.scrollY;
+let navTicking = false;
+
+function updateNav() {
+  const y = window.scrollY;
+  nav.classList.toggle('scrolled', y > 60);
+
+  const menuOpen = navLinksEl && navLinksEl.classList.contains('is-open');
+  const dy = y - lastY;
+  if (y < 80 || menuOpen) {
+    nav.classList.remove('nav--hidden');
+    lastY = y;
+  } else if (Math.abs(dy) >= 4) {          // ignora micro-movimientos
+    if (dy > 0 && !nav.contains(document.activeElement)) nav.classList.add('nav--hidden');
+    else if (dy < 0) nav.classList.remove('nav--hidden');
+    lastY = y;
+  }
+  navTicking = false;
+}
+
 window.addEventListener('scroll', () => {
-  if (window.scrollY > 60) nav.classList.add('scrolled');
-  else nav.classList.remove('scrolled');
-});
+  if (navTicking) return;
+  navTicking = true;
+  requestAnimationFrame(updateNav);
+}, { passive: true });
+
+nav.addEventListener('focusin', () => nav.classList.remove('nav--hidden'));
 
 // ============ SMOOTH SCROLL ON NAV CLICKS ============
 document.querySelectorAll('a[href^="#"]').forEach(link => {
